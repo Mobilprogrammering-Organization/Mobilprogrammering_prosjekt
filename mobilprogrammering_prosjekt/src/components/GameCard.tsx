@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
 import { Game } from "@/types/game";
+import LikeCounter from "./LikeCounter";
 
 export function GameCard({ game }: { game: Game }) {
   const { title, boxArtImageURL, genres, releaseDate } = game;
@@ -12,6 +13,7 @@ export function GameCard({ game }: { game: Game }) {
         <Text style={styles.gameInfoText}><Text style={styles.infoText}>Title: </Text>{title}</Text>
         <Text style={styles.gameInfoText}><Text style={styles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
         <Text style={styles.gameInfoText}><Text style={styles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
+        <LikeCounter />
       </View>
     </View>
   )
