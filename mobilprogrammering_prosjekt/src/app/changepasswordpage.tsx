@@ -15,10 +15,15 @@ export default function ChangePasswordPage() {
     },
     onSubmit: async ({ value }) => {
       {
-        if (value.newPassword && value.confirmPassword
-        && value.newPassword !== value.confirmPassword) {
+        if (!value.newPassword || !value.confirmPassword) {
           setConfirmationMessage("");
-          setErrorMessage("Password inputs do not match");
+          setErrorMessage("Please fill in all password fields.");
+          return;
+        }
+
+        if (value.newPassword !== value.confirmPassword) {
+          setConfirmationMessage("");
+          setErrorMessage("Password inputs do not match.");
           return;
         }
       }

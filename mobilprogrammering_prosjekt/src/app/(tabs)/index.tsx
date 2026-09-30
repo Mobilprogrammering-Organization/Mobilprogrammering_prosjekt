@@ -1,5 +1,6 @@
 import { GameList } from "@/components/GameList";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
+import { styles } from "@/styles/styles";
 import { Link } from "expo-router";
 
 export default function Index() {
@@ -9,11 +10,3 @@ export default function Index() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

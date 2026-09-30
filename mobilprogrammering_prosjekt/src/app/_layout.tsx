@@ -1,4 +1,3 @@
-import { CreateAccountButton } from "@/components/CreateAccountButton";
 import { styles } from "@/styles/styles";
 import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
@@ -14,7 +13,10 @@ export default function RootLayout() {
 
   return <Stack
     screenOptions={{
-      headerTitle: () => <Text >CheckPoint</Text>,
+      headerStyle: {
+          backgroundColor: colors["brand-grey"],
+      },
+      headerTintColor: colors["brand-white"],
     }}
   >
     <Stack.Screen 
@@ -37,6 +39,12 @@ export default function RootLayout() {
       name="changepasswordpage"
       options = {{
         title: "Change password"
+      }}
+    />
+    <Stack.Screen 
+      name="deleteaccountpage"
+      options = {{
+        title: "Delete account"
       }}
     />
     <Stack.Screen 

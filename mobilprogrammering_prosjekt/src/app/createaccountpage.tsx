@@ -21,17 +21,17 @@ export default function CreateAccountPage() {
     },
     onSubmit: async ({ value }) => {
       if (value.username.length < 3) {
-        setErrorMessage("Username must be at least 3 characters long");
+        setErrorMessage("Username must be at least 3 characters long.");
         return;
       }
       if (value.password.length < 3) {
-        setErrorMessage("Password must be at least 3 characters long");
+        setErrorMessage("Password must be at least 3 characters long.");
         return;
       }
 
       console.log("User data: ", value);
       setErrorMessage("");
-      setConfirmationMessage("Account created successfully");
+      setConfirmationMessage("Account created successfully.");
 
       setTimeout(() => {
         router.replace({

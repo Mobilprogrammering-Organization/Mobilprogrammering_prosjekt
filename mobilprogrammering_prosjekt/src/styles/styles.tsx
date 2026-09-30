@@ -1,7 +1,10 @@
 import { StyleSheet } from "react-native";
 import { colors } from "./theme";
 
-export const styles = StyleSheet.create({ 
+export const styles = StyleSheet.create({
+  themeBackground: {
+    backgroundColor: colors["brand-black"],
+  },
   container: {
     display: "flex",
     flexDirection: "column",
@@ -53,7 +56,7 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     padding: 10,
-    margin: 5,
+    marginRight: 20,
     textAlign: "center",
   },
   buttonText: {
