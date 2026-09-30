@@ -7,9 +7,9 @@ export const styles = StyleSheet.create({
   },
   container: {
     display: "flex",
+    justifyContent: "center",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 50,
   },
   paragraphText: {
     fontWeight: "normal",

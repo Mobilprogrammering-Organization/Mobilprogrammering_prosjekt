@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { CreateAccountButton } from '@/components/CreateAccountButton';
+import { UserIcon } from '@/components/UserIcon';
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { colors } from '@/styles/theme';
 
@@ -20,12 +20,12 @@ export default function TabLayout() {
         name="index"
         options = {{
           title: "CheckPoint",
-          headerRight: () => <CreateAccountButton />,
+          headerRight: () => <UserIcon />,
           tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="house" color={color} size={size} />,
         }}
       />
       <Tabs.Screen 
-        name="mygames"
+        name="mygamespage"
         options={{
           title: 'My Games',
           tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />,

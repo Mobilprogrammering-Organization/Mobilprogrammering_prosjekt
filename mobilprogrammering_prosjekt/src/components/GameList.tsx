@@ -62,14 +62,8 @@ export function GameList() {
   )
   */
   return (
-    <ScrollView style={styles.gameList}>
+    <ScrollView>
       {GAMES.map((game) => <GameCard key={game.id} game={game} />)}
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  gameList: {
-    
-  },
-})
