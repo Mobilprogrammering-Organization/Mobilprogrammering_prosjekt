@@ -1,5 +1,4 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-
 import { Game } from "@/types/game";
 import { Link } from "expo-router";
 import LikeCounter from "./LikeCounter";
@@ -8,20 +7,20 @@ export function GameCard({ game }: { game: Game }) {
   const { title, boxArtImageURL, genres, releaseDate } = game;
 
   return (
-    <View style={styles.game}>
-      <Link href={`/`}><Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL }} /></Link>
-      <View style={styles.gameInfo}>
-        <Link href={`/`}><Text style={styles.gameInfoText}><Text style={styles.infoText}>Title: </Text>{title}</Text></Link>
-        <Text style={styles.gameInfoText}><Text style={styles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
-        <Text style={styles.gameInfoText}><Text style={styles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
-        <Text style={styles.gameInfoText}><Text style={styles.infoText}>Description: </Text>{game.description}</Text>
+    <View style={gameStyles.game}>
+      <Link href={{pathname: `/gamepage`, params: { id: game.id }}}><Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL }} /></Link>
+      <View style={gameStyles.gameInfo}>
+        <Link href={{pathname: `/gamepage`, params: { id: game.id }}}><Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Title: </Text>{title}</Text></Link>
+        <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
+        <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
+        <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Description: </Text>{game.description}</Text>
         <LikeCounter />
       </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const gameStyles = StyleSheet.create({
   game: {
     padding: 10,
     marginBottom: 30,
