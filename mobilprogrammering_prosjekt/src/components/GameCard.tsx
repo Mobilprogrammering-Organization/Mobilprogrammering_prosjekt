@@ -1,17 +1,19 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
 import { Game } from "@/types/game";
+import { Link } from "expo-router";
 
 export function GameCard({ game }: { game: Game }) {
   const { title, boxArtImageURL, genres, releaseDate } = game;
 
   return (
     <View style={styles.game}>
-      <Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL }} />
+      <Link href={`/userpage`}><Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL }} /></Link>
       <View style={styles.gameInfo}>
-        <Text style={styles.gameInfoText}><Text style={styles.infoText}>Title: </Text>{title}</Text>
+        <Link href={`/`}><Text style={styles.gameInfoText}><Text style={styles.infoText}>Title: </Text>{title}</Text></Link>
         <Text style={styles.gameInfoText}><Text style={styles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
         <Text style={styles.gameInfoText}><Text style={styles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
+        <Text style={styles.gameInfoText}><Text style={styles.infoText}>Description: </Text>{game.description}</Text>
       </View>
     </View>
   )

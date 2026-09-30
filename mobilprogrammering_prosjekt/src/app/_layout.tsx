@@ -1,21 +1,26 @@
-import { CreateUserButton } from "@/components/CreateUserButton";
+import { CreateAccountButton } from "@/components/CreateAccountButton";
+import { styles } from "@/styles/styles";
+import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
+import { Image, Text } from "react-native";
+//import checkpoint from "../../assets/images/checkpoint/checkpoint.png";
+
+function CheckpointLogo() {
+  //return <Image style={{ width: 50, height: 50 }} source={checkpoint} />;
+}
 
 export default function RootLayout() {
-  const router = useRouter();
+  const router = useRouter(); 
 
   return <Stack
     screenOptions={{
-      
+      headerTitle: () => <Text >CheckPoint</Text>,
     }}
   >
-    <Stack.Screen
-      name="index"
-      options = {{
-        title: "CheckPoint",
-        headerRight: () => <CreateUserButton />,
-      }}
-    />
+    <Stack.Screen 
+      name="(tabs)" 
+      options={{ headerShown: false }} 
+    /> 
     <Stack.Screen 
       name="userpage"
       options = {{
@@ -23,7 +28,7 @@ export default function RootLayout() {
       }}
     />
     <Stack.Screen 
-      name="createuserpage"
+      name="createaccountpage"
       options = {{
         title: "Create user"
       }}

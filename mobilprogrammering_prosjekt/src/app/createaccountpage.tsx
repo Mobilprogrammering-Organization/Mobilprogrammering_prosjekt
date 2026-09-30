@@ -7,11 +7,11 @@ import { useState } from "react";
 import { useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
 
-export default function CreateUserPage() {
+export default function CreateAccountPage() {
   const router = useRouter();
 
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [confirmationMessage, setConfirmationMessage] = useState<string>("");
 
   const form = useForm({
     defaultValues: {
@@ -20,14 +20,27 @@ export default function CreateUserPage() {
       password: "",
     },
     onSubmit: async ({ value }) => {
+      if (value.username.length < 3) {
+        setErrorMessage("Username must be at least 3 characters long");
+        return;
+      }
+      if (value.password.length < 3) {
+        setErrorMessage("Password must be at least 3 characters long");
+        return;
+      }
+
       console.log("User data: ", value);
-      router.replace({
+      setErrorMessage("");
+      setConfirmationMessage("Account created successfully");
+
+      setTimeout(() => {
+        router.replace({
         pathname: "/userpage",
         params: {
           id: value.id,
           username: value.username,
         }
-      });
+      })}, 1000);
     }
   })
 
@@ -57,14 +70,18 @@ export default function CreateUserPage() {
               value={field.state.value}
               onChangeText={(value) => field.handleChange(value)}
               placeholder="Create a password"
+              secureTextEntry={true}
             />
           </View>
         )}
       />
 
       <Pressable onPress={() => form.handleSubmit()}>
-        <Text style={styles.fieldInput} >Create account</Text>
+        <Text style={styles.button}>Create account</Text>
       </Pressable>
+
+      {errorMessage ? <Text style={{ color: "red", ...styles.mainText }}>{errorMessage}</Text> : null}
+      {confirmationMessage ? <Text style={{ color: "green", ...styles.mainText }}>{confirmationMessage}</Text> : null}
     </View>
   );
 }

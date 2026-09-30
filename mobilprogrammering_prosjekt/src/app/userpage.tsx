@@ -8,8 +8,11 @@ export default function UserPage() {
   return (
     <View style={styles.container}>
       <Text style={styles.mainText}>Hello, {username}!</Text>
-      <Link style={styles.fieldInput} href="/changepasswordpage">
+      <Link style={styles.button} href="/changepasswordpage">
         <Text>Change password</Text>
+      </Link>
+      <Link style={styles.button} href="/deleteaccountpage">
+        <Text>Delete account</Text>
       </Link>
     </View>
   );

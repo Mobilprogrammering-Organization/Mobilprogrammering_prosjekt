@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react-native';
-import Index from '@/app/index';
+import Index from '@/app/(tabs)/index';
 
 test('Games render correctly', async () => {
   await render(<Index />);
