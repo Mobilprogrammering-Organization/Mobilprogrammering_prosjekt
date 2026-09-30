@@ -2,8 +2,8 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { Game } from "@/types/game";
 import { Link } from "expo-router";
-import LikeCounter from "./LikeCounter";
 import { colors } from "@/styles/theme";
+import LikeToggle from "./LikeToggle";
 
 export function GameCard({ game }: { game: Game }) {
   const { title, boxArtImageURL, genres, releaseDate } = game;
@@ -18,7 +18,7 @@ export function GameCard({ game }: { game: Game }) {
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Description: </Text>{game.description}</Text>
-        <LikeCounter />
+        <LikeToggle />
         <Pressable style={isAdded ? gameStyles.removeButton : gameStyles.addButton} onPress={() => setIsAdded(!isAdded)}>
           <Text style={gameStyles.addButtonText}>
             {isAdded ? "Remove game from game list." : "Add game to game list."}
