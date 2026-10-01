@@ -49,7 +49,7 @@ export default function CreateAccountPage() {
       <form.Field
         name="username"
         children={(field) => (
-          <View>
+          <>
             <Text style={styles.mainText}>Username:</Text>
             <TextInput
               style={styles.fieldInput}
@@ -57,13 +57,13 @@ export default function CreateAccountPage() {
               onChangeText={(value) => field.handleChange(value)}
               placeholder="Create a username"
             />
-          </View>
+          </>
         )}
       />
       <form.Field
         name="password"
         children={(field) => (
-          <View>
+          <>
             <Text style={styles.mainText}>Password:</Text>
             <TextInput
               style={styles.fieldInput}
@@ -72,7 +72,7 @@ export default function CreateAccountPage() {
               placeholder="Create a password"
               secureTextEntry={true}
             />
-          </View>
+          </>
         )}
       />
 

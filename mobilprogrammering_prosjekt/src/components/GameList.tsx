@@ -1,4 +1,5 @@
 /*Claude chat som forklarer bruk av igdb api-et: https://claude.ai/share/cbf3f386-cf06-47b9-810b-7f8b9e8884e2*/ 
+import CommentSection from "./CommentSection";
 
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, ScrollView, StyleSheet } from "react-native";
@@ -68,6 +69,7 @@ export function GameList() {
       {GAMES.map((game) => 
       <GameCard key={game.id} game={game}>
         <LikeToggle />
+        <CommentSection />
         <AddButton />
       </GameCard>
       )}

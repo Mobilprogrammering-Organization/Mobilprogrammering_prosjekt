@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
      textAlign: "center",
   },
   fieldInput: {
-    fontWeight: "bold",
     fontSize: 30,
     borderStyle: "solid",
     borderColor: colors["brand-black"],
@@ -33,7 +32,14 @@ export const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
     width: "80%",
-    textAlign: "center",
+  },
+  commentSection: {
+    fontSize: 24,
+    margin: 10,
+    borderStyle: "solid",
+    borderColor: colors["brand-black"],
+    borderWidth: 3,
+    borderRadius: 10,
   },
   button: {
     fontWeight: "bold",
@@ -63,5 +69,5 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     textAlign: "center",
-  }
+  },
 })
