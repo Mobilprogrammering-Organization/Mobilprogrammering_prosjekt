@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import { UserIcon } from '@/components/UserIcon';
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { colors } from '@/styles/theme';
+import { Text } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -29,6 +30,13 @@ export default function TabLayout() {
         options={{
           title: 'My Games',
           tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="articlespage"
+        options={{
+          title: 'Articles',
+          tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="search" color={color} size={size} />,
         }}
       />
       <Tabs.Screen

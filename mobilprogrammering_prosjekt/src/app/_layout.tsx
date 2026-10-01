@@ -55,5 +55,17 @@ export default function RootLayout() {
         title: "Select user"
       }}
     />
+    <Stack.Screen 
+      name="gamepage"
+      options = {{
+        title: "Game page"
+      }}
+    />
+    <Stack.Screen 
+      name="articlepage"
+      options = {{
+        title: "Article page"
+      }}
+    />
   </Stack>;
 }

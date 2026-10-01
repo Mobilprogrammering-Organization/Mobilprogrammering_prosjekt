@@ -24,7 +24,7 @@ export default function GamePage() {
           </View>
         </View>
       ) : (
-        <Text>Game with id {id} was not found.</Text>
+        <Text>The game page could not be found.</Text>
       )}
     </View>
   );
