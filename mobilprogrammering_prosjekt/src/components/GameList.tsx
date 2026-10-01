@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { View, Text, FlatList, ScrollView, StyleSheet } from "react-native";
 import { GAMES } from "@/data/games";
 import { GameCard } from "./GameCard";
+import { AddButton } from "./AddButton";
+import LikeToggle from "./LikeToggle";
 
 export function GameList() {
   /*
@@ -63,7 +65,12 @@ export function GameList() {
   */
   return (
     <ScrollView>
-      {GAMES.map((game) => <GameCard key={game.id} game={game} />)}
+      {GAMES.map((game) => 
+      <GameCard key={game.id} game={game}>
+        <LikeToggle />
+        <AddButton />
+      </GameCard>
+      )}
     </ScrollView>
   )
 }

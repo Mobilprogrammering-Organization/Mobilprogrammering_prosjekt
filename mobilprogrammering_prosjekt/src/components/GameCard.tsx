@@ -2,13 +2,9 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { useState } from "react";
 import { Game } from "@/types/game";
 import { Link } from "expo-router";
-import { colors } from "@/styles/theme";
-import LikeToggle from "./LikeToggle";
 
-export function GameCard({ game }: { game: Game }) {
+export function GameCard({ children, game }: { children?: React.ReactNode; game: Game }) {
   const { title, boxArtImageURL, genres, releaseDate } = game;
-
-  const [isAdded, setIsAdded] = useState(false);
 
   return (
     <View style={gameStyles.game}>
@@ -18,12 +14,7 @@ export function GameCard({ game }: { game: Game }) {
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Genres: </Text>{genres.join(", ")}</Text>
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Release Date: </Text>{releaseDate.toDateString()}</Text>
         <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Description: </Text>{game.description}</Text>
-        <LikeToggle />
-        <Pressable style={isAdded ? gameStyles.removeButton : gameStyles.addButton} onPress={() => setIsAdded(!isAdded)}>
-          <Text style={gameStyles.addButtonText}>
-            {isAdded ? "Remove game from game list." : "Add game to game list."}
-          </Text>
-        </Pressable>
+        { children }
       </View>
     </View>
   )
@@ -47,26 +38,5 @@ const gameStyles = StyleSheet.create({
   },
   gameInfoText: {
     fontSize: 20,
-  },
-  addButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "green",
-    borderRadius: 5,
-    borderWidth: 3,
-    borderColor: "black",
-  },
-  removeButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "red",
-    borderRadius: 5,
-    borderWidth: 3,
-    borderColor: "black",
-  },
-  addButtonText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
   },
 })
