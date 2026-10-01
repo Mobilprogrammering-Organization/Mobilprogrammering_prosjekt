@@ -1,3 +1,4 @@
+import { UserIcon } from "@/components/UserIcon";
 import { styles } from "@/styles/styles";
 import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
@@ -17,6 +18,7 @@ export default function RootLayout() {
           backgroundColor: colors["brand-grey"],
       },
       headerTintColor: colors["brand-white"],
+      headerRight: () => <UserIcon />,
     }}
   >
     <Stack.Screen 

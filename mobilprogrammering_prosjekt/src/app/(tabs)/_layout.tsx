@@ -14,13 +14,13 @@ export default function TabLayout() {
       headerStyle: {
         backgroundColor: colors["brand-grey"],
       },
-      headerTintColor: colors["brand-white"]
+      headerTintColor: colors["brand-white"],
+      headerRight: () => <UserIcon />,
     }}>
       <Tabs.Screen
         name="index"
         options = {{
           title: "CheckPoint",
-          headerRight: () => <UserIcon />,
           tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="house" color={color} size={size} />,
         }}
       />
