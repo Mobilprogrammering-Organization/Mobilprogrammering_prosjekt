@@ -4,7 +4,7 @@ import { styles } from "@/styles/styles";
 
 export default function Dummy() {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.paragraphText}>Page not found</Text>
       <Text style={styles.paragraphText}>Game cards or something similar may be displayed here in the future.</Text>
       <Text style={styles.paragraphText}>Still under development.</Text>

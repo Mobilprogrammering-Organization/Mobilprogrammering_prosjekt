@@ -11,16 +11,19 @@ export default function GamePage() {
   const { title, boxArtImageURL, genres, releaseDate, description } = selectedGame || {};
 
   return (
-    <View style={gameStyles.game}>
+    <View style={[styles.container, gameStyles.game]}>
       <Text style={styles.mainText}>Game Details</Text>
       {selectedGame ? (
         <View>
           <Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL}} />
           <View style={gameStyles.gameInfo}>
-            <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Title: </Text>{title}</Text>
-            <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Genres: </Text>{genres ? genres.join(", ") : "N/A"}</Text>
-            <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Release Date: </Text>{releaseDate?.toDateString()}</Text>
-            <Text style={gameStyles.gameInfoText}><Text style={gameStyles.infoText}>Description: </Text>{description}</Text>
+            <Text style={[gameStyles.infoText, gameStyles.gameTitle]}>{title}</Text>
+            <Text style={gameStyles.infoText}>Genres: </Text>
+            <Text style={gameStyles.gameInfoText}>{genres ? genres.join(", ") : "N/A"}</Text>
+            <Text style={gameStyles.infoText}>Release Date: </Text>
+            <Text style={gameStyles.gameInfoText}>{releaseDate?.toDateString()}</Text>
+            <Text style={gameStyles.infoText}>Description: </Text>
+            <Text style={gameStyles.gameInfoText}>{description}</Text>
           </View>
         </View>
       ) : (
@@ -41,12 +44,18 @@ const gameStyles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#d7d7d7",
     padding: 10,
+    textAlign: "center",
   },
   infoText: {
     fontWeight: "bold",
     fontSize: 20,
+    textAlign: "center",
   },
   gameInfoText: {
     fontSize: 20,
+    textAlign: "center",
+  },
+  gameTitle: {
+    fontSize: 24,
   }
 })

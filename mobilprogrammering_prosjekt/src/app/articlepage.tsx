@@ -11,7 +11,7 @@ export default function ArticlePage() {
 
   return (
     selectedArticle ? (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.mainText}>{title}</Text>
         <Image style={{ width: 600, height: 300 }} source={{uri: articleImageURL}}></Image>
         <Text style={styles.mainText}>{content}</Text>
