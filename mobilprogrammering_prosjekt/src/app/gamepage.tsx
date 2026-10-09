@@ -8,22 +8,31 @@ export default function GamePage() {
   const { id } = useLocalSearchParams();
   const selectedGame = GAMES.find((game: Game) => game.id === id);
 
-  const { title, boxArtImageURL, genres, releaseDate, description } = selectedGame || {};
+  const { name, cover, genres, releaseDate, summary } = selectedGame || {};
 
   return (
     <View style={[styles.container, gameStyles.game]}>
       <Text style={styles.mainText}>Game Details</Text>
       {selectedGame ? (
         <View>
-          <Image style={{ width: 300, height: 300 }} source={{ uri: boxArtImageURL}} />
+          <Image
+            style={{ width: 300, height: 300 }}
+            source={{ uri: cover?.image_id }}
+          />
           <View style={gameStyles.gameInfo}>
-            <Text style={[gameStyles.infoText, gameStyles.gameTitle]}>{title}</Text>
+            <Text style={[gameStyles.infoText, gameStyles.gameTitle]}>
+              {name}
+            </Text>
             <Text style={gameStyles.infoText}>Genres: </Text>
-            <Text style={gameStyles.gameInfoText}>{genres ? genres.join(", ") : "N/A"}</Text>
+            <Text style={gameStyles.gameInfoText}>
+              {genres?.map((genre) => genre.name).join(", ") ?? "N/A"}
+            </Text>
             <Text style={gameStyles.infoText}>Release Date: </Text>
-            <Text style={gameStyles.gameInfoText}>{releaseDate?.toDateString()}</Text>
+            <Text style={gameStyles.gameInfoText}>
+              {releaseDate?.toDateString()}
+            </Text>
             <Text style={gameStyles.infoText}>Description: </Text>
-            <Text style={gameStyles.gameInfoText}>{description}</Text>
+            <Text style={gameStyles.gameInfoText}>{summary}</Text>
           </View>
         </View>
       ) : (
@@ -57,5 +66,5 @@ const gameStyles = StyleSheet.create({
   },
   gameTitle: {
     fontSize: 24,
-  }
-})
+  },
+});

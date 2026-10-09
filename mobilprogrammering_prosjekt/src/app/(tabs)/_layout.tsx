@@ -1,49 +1,59 @@
-import { Tabs } from 'expo-router';
-import { UserIcon } from '@/components/UserIcon';
+import { Tabs } from "expo-router";
+import { UserIcon } from "@/components/UserIcon";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
-import { colors } from '@/styles/theme';
-import { Text } from 'react-native';
+import { colors } from "@/styles/theme";
+import { Text } from "react-native";
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ 
-      tabBarActiveTintColor: colors["brand-cyan"],
-      tabBarInactiveTintColor: colors["brand-white"],
-      tabBarStyle: {
-        backgroundColor: colors["brand-grey"],
-      },
-      headerStyle: {
-        backgroundColor: colors["brand-grey"],
-      },
-      headerTintColor: colors["brand-white"],
-      headerRight: () => <UserIcon />,
-    }}>
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: colors["brand-cyan"],
+        tabBarInactiveTintColor: colors["brand-white"],
+        tabBarStyle: {
+          backgroundColor: colors["brand-grey"],
+        },
+        headerStyle: {
+          backgroundColor: colors["brand-grey"],
+        },
+        headerTintColor: colors["brand-white"],
+        headerRight: () => <UserIcon />,
+      }}
+    >
       <Tabs.Screen
         name="index"
-        options = {{
+        options={{
           title: "CheckPoint",
-          tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="house" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeFreeSolid name="house" color={color} size={size} />
+          ),
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="mygamespage"
         options={{
-          title: 'My Games',
-          tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />,
+          title: "My Games",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
         name="articlespage"
         options={{
-          title: 'Articles',
-          tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="search" color={color} size={size} />,
+          title: "Articles",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeFreeSolid name="search" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
         name="dummy"
         options={{
-          title: 'Dummy page',
-          tabBarIcon: ({ color, size }) => <FontAwesomeFreeSolid name="question" color={color} size={size} />,
+          title: "Dummy page",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeFreeSolid name="question" color={color} size={size} />
+          ),
         }}
       />
     </Tabs>
