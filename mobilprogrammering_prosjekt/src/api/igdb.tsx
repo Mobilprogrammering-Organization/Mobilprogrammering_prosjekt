@@ -7,7 +7,7 @@ import {
   CLIENTSECRET,
   EXPO_PUBLIC_AUTHENTICATION_URL_BASE,
   EXPO_PUBLIC_BASE_URL,
-  GRANT_TYPE,
+  EXPO_PUBLIC_GRANT_TYPE,
 } from "@/constants/env_values";
 
 async function getAccessToken(
@@ -45,7 +45,7 @@ export async function getIGDBContent(
       EXPO_PUBLIC_AUTHENTICATION_URL_BASE,
       CLIENTID,
       CLIENTSECRET,
-      GRANT_TYPE,
+      EXPO_PUBLIC_GRANT_TYPE,
     );
 
     const response = await fetch(`${EXPO_PUBLIC_BASE_URL}${endpoint}`, {
