@@ -16,6 +16,7 @@ import { getIGDBContent } from "@/api/igdb";
 import type { Game } from "@/types/game";
 import { GAMES } from "@/data/games";
 import React from "react";
+import { getGames } from "@/api/testApi";
 
 const gamesFromIGDB = `
 fields name, cover.image_id, genres.name, rating, first_release_date, summary;
@@ -31,6 +32,11 @@ export function GameList() {
     CLIENTID,
   );
   */
+
+  useEffect(() => {
+    getGames();
+  })
+
 
   return (
     <ScrollView>
