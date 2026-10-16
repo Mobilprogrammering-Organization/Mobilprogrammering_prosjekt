@@ -17,9 +17,6 @@ async function getAccessToken(
   grantType: string,
 ): Promise<string> {
   try {
-    console.log(
-      `${url_base}?client_id=${clientId}&client_secret=${clientSecret}&grant_type=${grantType}`,
-    );
     const response = await fetch(
       `${url_base}?client_id=${clientId}&client_secret=${clientSecret}&grant_type=${grantType}`,
       { method: "POST" },
@@ -45,10 +42,10 @@ export async function getIGDBContent(
 ): Promise<Partial<Game>[]> {
   try {
     const accessToken = await getAccessToken(
-      EXPO_PUBLIC_AUTHENTICATION_URL_BASE,
-      CLIENT_ID,
-      CLIENT_SECRET,
-      EXPO_PUBLIC_GRANT_TYPE,
+      EXPO_PUBLIC_AUTHENTICATION_URL_BASE ?? "",
+      CLIENT_ID || "",
+      CLIENT_SECRET || "",
+      EXPO_PUBLIC_GRANT_TYPE || "",
     );
 
     const response = await fetch(`${EXPO_PUBLIC_BASE_URL}${endpoint}`, {
