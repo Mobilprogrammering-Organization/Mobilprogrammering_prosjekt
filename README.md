@@ -2,7 +2,7 @@
 
 CheckPoint er et studentprosjekt utviklet i emnet **Mobilprogrammering** ved Høgskolen i Østfold.
 
-## Om prosjektet
+## Om prosjektet og hva appen gjør
 
 CheckPoint er en mobilapp for spillinteresserte. Formålet med appen er å gjøre det enkelt å holde seg oppdatert på hva som skjer i spillverdenen, samtidig som brukeren kan holde oversikt over spillene sine på ett sted.
 
@@ -84,3 +84,24 @@ Planlagt teknologi inkluderer blant annet:
 🚧 **Under utvikling**
 
 Prosjektet utvikles gjennom høstsemesteret 2026 som en del av emnet Mobilprogrammering.
+
+## Starte appen
+
+1. Kopier url-en for prosjektet fra main-branchen og klon den i GitHub Desktop applikasjonen.
+2. Eventuelt last ned npm i "mobilprogrammering_prosjekt" mappen for å få "node_modules" mappen.
+3. Last ned "Expo Go" eller bruk en emulator.
+   https://docs.expo.dev/get-started/set-up-your-environment/ 
+5. Hent private og hemmelige nøkler og legg dem i en ".env" fil i for å bruke IGDB-api-et. Kontakt Daniel Karlsen for å få nøklene.
+7. Kjør "npx expo start" for å starte applikasjonen.
+
+## Tekniske detaljer
+
+Tester kjøres med jest rammeverket. Selve testfilene ligger i "__tests__" mappen. De kjøres med "npm run test".
+
+Alle ruter man kan navigere til i appen ligger i "app" mappen. "(tabs)" mappen inneholder sider man kan navigere til fra navigasjonsmenyen på bunnen av skjermen.
+
+Dummy data ligger innenfor "data" mappen. Den faktiske dataen vi bruker i prosjektet er fra IGDB-API-et. Det er zod-schemaer for typene vi bruker inni "types" mappen. 
+
+Komponenter som rendrer de faktiske navigerbare sidene ligger i "app". Underliggende komponenter som sidene i "app" bruker ligger i "components". Å ha komponenter uavhengig fra sidene skaper fleksibilitet og mulighet til å bruke dem på tvers av sider potensielt med annerledes logikk sendt via props.
+
+For å bruke IGDB-API-et trygt så måtte vi lagre nøklene et sted som ikke eksponerer dem i klartekst. Derfor er det best at de som ønsker å bruke applikasjonen kan stoles på og spør om nøklene selv direkte slik at nøklene forhåpentligvis ikke lekkes ut. 
