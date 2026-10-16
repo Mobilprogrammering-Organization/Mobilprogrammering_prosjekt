@@ -33,13 +33,17 @@ export function GameList() {
   );
   */
 
+  const [data, setData] = useState<any>([]);
   useEffect(() => {
-    getGames();
-  })
+    getGames().then((data) => {
+      console.log(data);
+      setData(data);
+    });
+  }, []);
 
 
   return (
-    <ScrollView>
+   /* <ScrollView>
       {GAMES.map((game) => (
         <GameCard key={game.id} game={game}>
           <LikeToggle />
@@ -47,6 +51,18 @@ export function GameList() {
           <AddButton />
         </GameCard>
       ))}
+    </ScrollView>
+
+    */
+
+    <ScrollView>
+            {data.map((game:any) => (
+        <GameCard key={game.id} game={game}>
+          <LikeToggle />
+          <CommentSection />
+          <AddButton />
+        </GameCard>
+        ))}
     </ScrollView>
   );
 }
