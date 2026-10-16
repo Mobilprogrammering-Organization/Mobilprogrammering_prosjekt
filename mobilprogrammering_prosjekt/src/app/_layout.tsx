@@ -1,4 +1,5 @@
 import { UserIcon } from "@/components/UserIcon";
+import { QueryClientProvider } from "@/context/QueryProvider";
 import { styles } from "@/styles/styles";
 import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
@@ -9,7 +10,19 @@ function CheckpointLogo() {
   //return <Image style={{ width: 50, height: 50 }} source={checkpoint} />;
 }
 
-export default function RootLayout() {
+
+
+export default function LayoutWithProviders () {
+  return (
+      <QueryClientProvider>
+          <RootLayout />
+      </QueryClientProvider>
+  );
+
+};
+
+
+function RootLayout() {
   const router = useRouter(); 
 
   return <Stack
@@ -69,3 +82,6 @@ export default function RootLayout() {
     />
   </Stack>;
 }
+
+
+
