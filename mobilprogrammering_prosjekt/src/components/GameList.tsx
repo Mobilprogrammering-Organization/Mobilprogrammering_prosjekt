@@ -16,6 +16,7 @@ import { getIGDBContent } from "@/api/igdb";
 import type { Game } from "@/types/game";
 import { GAMES } from "@/data/games";
 import React from "react";
+import { getGames } from "@/api/testApi";
 
 const gamesFromIGDB = `
 fields name, cover.image_id, genres.name, rating, first_release_date, summary;
@@ -32,8 +33,17 @@ export function GameList() {
   );
   */
 
+  const [data, setData] = useState<any>([]);
+  useEffect(() => {
+    getGames().then((data) => {
+      console.log(data);
+      setData(data);
+    });
+  }, []);
+
+
   return (
-    <ScrollView>
+   /* <ScrollView>
       {GAMES.map((game) => (
         <GameCard key={game.id} game={game}>
           <LikeToggle />
@@ -41,6 +51,18 @@ export function GameList() {
           <AddButton />
         </GameCard>
       ))}
+    </ScrollView>
+
+    */
+
+    <ScrollView>
+            {data.map((game:any) => (
+        <GameCard key={game.id} game={game}>
+          <LikeToggle />
+          <CommentSection />
+          <AddButton />
+        </GameCard>
+        ))}
     </ScrollView>
   );
 }
