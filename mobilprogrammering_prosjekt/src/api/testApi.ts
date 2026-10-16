@@ -1,8 +1,9 @@
-
 import z from "zod";
 
+// Innhente data fra eksternt API ved bruk av fetch:
 const BASE_PATH = "https://api.mockapi.com";
 const API_KEY = "658a6ba6211d45e19c5b6a070479dde0";
+
 
 export const GameTestSchema = z.object({
   id: z.string().min(1, { message: "Id: is required " }),
@@ -16,11 +17,10 @@ export const GameTestSchema = z.object({
       id: z.string().min(1, { message: "Genre ID: is required " }),
       name: z.string().min(1, { message: "Genre name: is required " }),
     })).optional(),
-  rating: z.string().min(1, { message: "Rating: is required " }),
-  releaseDate: z.string({ message: "Date: is required " }).optional(),
+  rating: z.number().min(1, { message: "Rating: is required " }).optional(),
+  releaseDate: z.date({ message: "Date: is required " }).optional(),
   summary: z.string().min(1, { message: "Description: is required " }),
 });
-
 export const GamesArraySchema = z.array(GameTestSchema);
 
 export async function getGames() {
@@ -42,4 +42,5 @@ export async function getGames() {
         console.log(error);
     }
 }
+
 
