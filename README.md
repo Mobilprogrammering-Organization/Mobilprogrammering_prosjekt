@@ -76,7 +76,7 @@ Planlagt teknologi inkluderer blant annet:
 - JavaScript / TypeScript
 - Git og GitHub
 - GitHub Projects
-- Ekstern API/dat ​​akilde
+- Ekstern API/datakilde
 - Testing av komponenter og hovedflyt
 
 ## Prosjektstatus
