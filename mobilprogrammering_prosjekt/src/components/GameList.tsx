@@ -17,6 +17,8 @@ import type { Game } from "@/types/game";
 import { GAMES } from "@/data/games";
 import React from "react";
 import { getGames } from "@/api/testApi";
+import { useQuery } from "@tanstack/react-query";
+import { colors } from "@/styles/theme";
 
 const gamesFromIGDB = `
 fields name, cover.image_id, genres.name, rating, first_release_date, summary;
@@ -25,7 +27,7 @@ sort rating desc;
 limit 10;`;
 
 export function GameList() {
-  /*
+  /* Innhenting fra IGDB
   const games: Partial<Game>[] = await getIGDBContent(
     "games",
     gamesFromIGDB,
@@ -33,6 +35,7 @@ export function GameList() {
   );
   */
 
+  /* Innhenting av data med useEffect
   const [data, setData] = useState<any>([]);
   useEffect(() => {
     getGames().then((data) => {
@@ -40,10 +43,29 @@ export function GameList() {
       setData(data);
     });
   }, []);
+  */
 
+  //Tanstack:
+  const {data: games = [], isLoading, isError } = useQuery({
+    queryKey: ['games'],
+    queryFn: getGames
+  });
+
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator size="large" color={colors["brand-black"]} />
+      </View>
+    )
+  }
+
+  if (isError) {
+    return <Text>Noe gikk galt under henting av spill...</Text>
+  }
 
   return (
-   /* <ScrollView>
+   /* Render fra statiske data
+    <ScrollView>
       {GAMES.map((game) => (
         <GameCard key={game.id} game={game}>
           <LikeToggle />
@@ -52,9 +74,9 @@ export function GameList() {
         </GameCard>
       ))}
     </ScrollView>
-
     */
 
+    /* Render med useEffect
     <ScrollView>
             {data.map((game:any) => (
         <GameCard key={game.id} game={game}>
@@ -64,5 +86,19 @@ export function GameList() {
         </GameCard>
         ))}
     </ScrollView>
+    */
+
+    //Tanstack-return:
+        <ScrollView>
+            {games.map((game) => (
+        <GameCard key={game.id} game={game}>
+          <LikeToggle />
+          <CommentSection />
+          <AddButton />
+        </GameCard>
+        ))}
+    </ScrollView>    
+
+
   );
 }
