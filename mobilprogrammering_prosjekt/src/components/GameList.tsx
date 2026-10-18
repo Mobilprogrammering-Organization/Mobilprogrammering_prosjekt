@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   ActivityIndicator,
+  useWindowDimensions
 } from "react-native";
 import { GameCard } from "./GameCard";
 import { AddButton } from "./AddButton";
@@ -24,6 +25,18 @@ sort rating desc;
 limit 10;`;
 
 export function GameList() {
+  
+
+  // Kommentert ut inntil vidre. Fullfører dette når vi har data fra API'et å bruke.
+  
+  // const {width, height} = useWindowDimensions();
+  // const isLandscape = width > height;
+  // const isTablet = width > 550;
+
+  
+// const columns = isLandscape && isTablet ? 2 : 1;
+  
+  
   /*
   const games: Partial<Game>[] = await getIGDBContent(
     "games",
