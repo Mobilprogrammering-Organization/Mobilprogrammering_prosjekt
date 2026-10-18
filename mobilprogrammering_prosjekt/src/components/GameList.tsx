@@ -34,7 +34,7 @@ export function GameList() {
   // const isTablet = width > 550;
 
   
-// const columns = isLandscape && isTablet ? 2 : 1;
+  // const columns = isLandscape && isTablet ? 2 : 1;
   
   
   /*
