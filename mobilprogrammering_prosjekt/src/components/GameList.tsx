@@ -17,6 +17,9 @@ import { getIGDBContent } from "@/api/igdb";
 import type { Game } from "@/types/game";
 import { GAMES } from "@/data/games";
 import React from "react";
+import { getGames } from "@/api/testApi";
+import { useQuery } from "@tanstack/react-query";
+import { colors } from "@/styles/theme";
 
 const gamesFromIGDB = `
 fields name, cover.image_id, genres.name, rating, first_release_date, summary;
@@ -25,19 +28,7 @@ sort rating desc;
 limit 10;`;
 
 export function GameList() {
-  
-
-  // Kommentert ut inntil vidre. Fullfører dette når vi har data fra API'et å bruke.
-  
-  // const {width, height} = useWindowDimensions();
-  // const isLandscape = width > height;
-  // const isTablet = width > 550;
-
-  
-  // const columns = isLandscape && isTablet ? 2 : 1;
-  
-  
-  /*
+  /* Innhenting fra IGDB
   const games: Partial<Game>[] = await getIGDBContent(
     "games",
     gamesFromIGDB,
@@ -45,7 +36,36 @@ export function GameList() {
   );
   */
 
+  /* Innhenting av data med useEffect
+  const [data, setData] = useState<any>([]);
+  useEffect(() => {
+    getGames().then((data) => {
+      console.log(data);
+      setData(data);
+    });
+  }, []);
+  */
+
+  //Tanstack:
+  const {data: games = [], isLoading, isError } = useQuery({
+    queryKey: ['games'],
+    queryFn: getGames
+  });
+
+  if (isLoading) {
+    return (
+      <View>
+        <ActivityIndicator size="large" color={colors["brand-black"]} />
+      </View>
+    )
+  }
+
+  if (isError) {
+    return <Text>Noe gikk galt under henting av spill...</Text>
+  }
+
   return (
+   /* Render fra statiske data
     <ScrollView>
       {GAMES.map((game) => (
         <GameCard key={game.id} game={game}>
@@ -55,5 +75,31 @@ export function GameList() {
         </GameCard>
       ))}
     </ScrollView>
+    */
+
+    /* Render med useEffect
+    <ScrollView>
+            {data.map((game:any) => (
+        <GameCard key={game.id} game={game}>
+          <LikeToggle />
+          <CommentSection />
+          <AddButton />
+        </GameCard>
+        ))}
+    </ScrollView>
+    */
+
+    //Tanstack-return:
+        <ScrollView>
+            {games.map((game) => (
+        <GameCard key={game.id} game={game}>
+          <LikeToggle />
+          <CommentSection />
+          <AddButton />
+        </GameCard>
+        ))}
+    </ScrollView>    
+
+
   );
 }
