@@ -9,7 +9,7 @@ import { type Game } from "@/types/game";
 
 export default function Index() {
   const gamesFromIGDB = `
-  fields name, cover.image_id, genres.name, rating, first_release_date, summary;
+  fields name, cover.image_id, genres.name, rating, release_dates.human, summary;
   where rating > 80 & rating_count > 50;
   sort rating desc;
   limit 10;`;
@@ -17,7 +17,7 @@ export default function Index() {
   const [games, setGames] = useState<Partial<Game>[]>([]);
 
   useEffect(() => {
-    getIGDBContent("games", gamesFromIGDB, CLIENT_ID).then((data) =>
+    getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? "").then((data) =>
       setGames(data),
     );
   }, [games]);

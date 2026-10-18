@@ -14,7 +14,7 @@ export function GameCard({
   children?: React.ReactNode;
   game: Partial<Game>;
 }) {
-  const { name, cover, genres, rating, releaseDate, summary } = game;
+  const { name, cover, genres, rating, release_dates, summary } = game;
 
   return (
     <View style={gameStyles.game}>
@@ -38,7 +38,10 @@ export function GameCard({
         <Text style={gameStyles.gameInfoText}>{rating}</Text>
         <Text style={gameStyles.infoText}>Release Date: </Text>
         <Text style={gameStyles.gameInfoText}>
-          {releaseDate?.toLocaleDateString()}
+          {release_dates
+            ?.map((releaseDate) => releaseDate.human)
+            .join(", ")
+            .slice(0, 12)}
         </Text>
         <Text style={gameStyles.infoText}>Description: </Text>
         <Text style={gameStyles.gameInfoText}>{summary}</Text>

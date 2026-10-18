@@ -8,7 +8,7 @@ export default function GamePage() {
   const { id } = useLocalSearchParams();
   const selectedGame = GAMES.find((game: Game) => game.id === id);
 
-  const { name, cover, genres, releaseDate, summary } = selectedGame || {};
+  const { name, cover, genres, release_dates, summary } = selectedGame || {};
 
   return (
     <View style={[styles.container, gameStyles.game]}>
@@ -29,7 +29,10 @@ export default function GamePage() {
             </Text>
             <Text style={gameStyles.infoText}>Release Date: </Text>
             <Text style={gameStyles.gameInfoText}>
-              {releaseDate?.toDateString()}
+              {release_dates
+                ?.map((releaseDate) => releaseDate.human)
+                .join(", ")
+                .slice(0, 12)}
             </Text>
             <Text style={gameStyles.infoText}>Description: </Text>
             <Text style={gameStyles.gameInfoText}>{summary}</Text>
