@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     
     // Tablet CSS - Like aktivert (altså setActiveLike = true)
     activeContainer_tablet: {
-        backgroundColor: "#c80d9c",
+        backgroundColor: "#c80d9c", // Half-life purple for å kunne se endringen #nerd
         borderColor: "black",
     },
 

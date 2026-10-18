@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   ActivityIndicator,
+  useWindowDimensions
 } from "react-native";
 import { GameCard } from "./GameCard";
 import { AddButton } from "./AddButton";
