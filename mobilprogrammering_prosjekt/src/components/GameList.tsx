@@ -18,15 +18,22 @@ import { GAMES } from "@/data/games";
 import React from "react";
 
 export function GameList({ games }: { games: Partial<Game>[] }) {
+  if (games.length === 0) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <ScrollView>
-      {games.map((game) => (
-        <GameCard key={game.id} game={game}>
-          <LikeToggle />
-          <CommentSection />
-          <AddButton />
-        </GameCard>
-      ))}
+      {!games ? (
+        <Text>Games failed to load.</Text>
+      ) : (
+        games.map((game) => (
+          <GameCard key={game.id} game={game}>
+            <LikeToggle />
+            <CommentSection />
+            <AddButton />
+          </GameCard>
+        ))
+      )}
     </ScrollView>
   );
 }

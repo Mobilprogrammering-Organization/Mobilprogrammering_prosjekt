@@ -21,10 +21,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   mainText: {
-     fontWeight: "bold",
-     fontSize: 30,
-     margin: 10,
-     textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    margin: 10,
+    textAlign: "center",
   },
   fieldInput: {
     fontSize: 30,
@@ -73,4 +73,9 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
   },
-})
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
