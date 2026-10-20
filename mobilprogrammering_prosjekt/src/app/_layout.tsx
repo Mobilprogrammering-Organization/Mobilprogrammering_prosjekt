@@ -10,78 +10,70 @@ function CheckpointLogo() {
   //return <Image style={{ width: 50, height: 50 }} source={checkpoint} />;
 }
 
-
-
-export default function LayoutWithProviders () {
+export default function LayoutWithProviders() {
   return (
-      <QueryClientProvider>
-          <RootLayout />
-      </QueryClientProvider>
+    <QueryClientProvider>
+      <RootLayout />
+    </QueryClientProvider>
   );
-
-};
-
-
-function RootLayout() {
-  const router = useRouter(); 
-
-  return <Stack
-    screenOptions={{
-      headerStyle: {
-          backgroundColor: colors["brand-grey"],
-      },
-      headerTintColor: colors["brand-white"],
-      headerRight: () => <UserIcon />,
-    }}
-  >
-    <Stack.Screen 
-      name="(tabs)" 
-      options={{ headerShown: false }} 
-    /> 
-    <Stack.Screen 
-      name="userpage"
-      options = {{
-        title: "User page",
-      }}
-    />
-    <Stack.Screen 
-      name="createaccountpage"
-      options = {{
-        title: "Create user"
-      }}
-    />
-    <Stack.Screen 
-      name="changepasswordpage"
-      options = {{
-        title: "Change password"
-      }}
-    />
-    <Stack.Screen 
-      name="deleteaccountpage"
-      options = {{
-        title: "Delete account"
-      }}
-    />
-    <Stack.Screen 
-      name="selectuser"
-      options = {{
-        title: "Select user"
-      }}
-    />
-    <Stack.Screen 
-      name="gamepage"
-      options = {{
-        title: "Game page"
-      }}
-    />
-    <Stack.Screen 
-      name="articlepage"
-      options = {{
-        title: "Article page"
-      }}
-    />
-  </Stack>;
 }
 
+function RootLayout() {
+  const router = useRouter();
 
-
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors["brand-grey"],
+        },
+        headerTintColor: colors["brand-white"],
+        headerRight: () => <UserIcon />,
+      }}
+    >
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="userpage"
+        options={{
+          title: "User page",
+        }}
+      />
+      <Stack.Screen
+        name="createaccountpage"
+        options={{
+          title: "Create user",
+        }}
+      />
+      <Stack.Screen
+        name="changepasswordpage"
+        options={{
+          title: "Change password",
+        }}
+      />
+      <Stack.Screen
+        name="deleteaccountpage"
+        options={{
+          title: "Delete account",
+        }}
+      />
+      <Stack.Screen
+        name="selectuser"
+        options={{
+          title: "Select user",
+        }}
+      />
+      <Stack.Screen
+        name="gamepage"
+        options={{
+          title: "Game page",
+        }}
+      />
+      <Stack.Screen
+        name="articlepage"
+        options={{
+          title: "Article page",
+        }}
+      />
+    </Stack>
+  );
+}

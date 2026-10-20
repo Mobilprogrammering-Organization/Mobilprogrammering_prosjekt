@@ -3,8 +3,8 @@
 
 import type { Game } from "@/types/game";
 import {
-  CLIENTID,
-  CLIENTSECRET,
+  CLIENT_ID,
+  CLIENT_SECRET,
   EXPO_PUBLIC_AUTHENTICATION_URL_BASE,
   EXPO_PUBLIC_BASE_URL,
   EXPO_PUBLIC_GRANT_TYPE,
@@ -42,10 +42,10 @@ export async function getIGDBContent(
 ): Promise<Partial<Game>[]> {
   try {
     const accessToken = await getAccessToken(
-      EXPO_PUBLIC_AUTHENTICATION_URL_BASE,
-      CLIENTID,
-      CLIENTSECRET,
-      EXPO_PUBLIC_GRANT_TYPE,
+      EXPO_PUBLIC_AUTHENTICATION_URL_BASE ?? "",
+      CLIENT_ID || "",
+      CLIENT_SECRET || "",
+      EXPO_PUBLIC_GRANT_TYPE || "",
     );
 
     const response = await fetch(`${EXPO_PUBLIC_BASE_URL}${endpoint}`, {
