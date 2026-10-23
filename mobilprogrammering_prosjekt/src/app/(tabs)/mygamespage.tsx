@@ -10,13 +10,13 @@ import { getIGDBContent } from "@/api/igdb";
 import { Game } from "@/types/game";
 import { GameList } from "@/components/GameList";
 
-export default function MyGamesPage() {
-  const gamesFromIGDB = `
+const gamesFromIGDB = `
     fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
     where rating > 80 & rating_count > 50;
     sort rating desc;
     limit 10;`;
 
+export default function MyGamesPage() {
   const [games, setGames] = useState<Partial<Game>[]>([]);
 
   useEffect(() => {
