@@ -22,7 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { colors } from "@/styles/theme";
 
 const gamesFromIGDB = `
-fields name, cover.image_id, genres.name, rating, first_release_date, summary;
+fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
 where rating > 80 & rating_count > 50;
 sort rating desc;
 limit 10;`;
