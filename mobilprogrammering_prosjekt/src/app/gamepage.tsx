@@ -51,7 +51,9 @@ export default function GamePage() {
                 {platforms?.map((platform) => platform.name).join(", ")}
               </Text>
               <Text style={gameStyles.infoText}>Rating: </Text>
-              <Text style={gameStyles.gameInfoText}>{rating}</Text>
+              <Text style={gameStyles.gameInfoText}>
+                {rating ? `${Math.round(rating)}/100` : "N/A"}
+              </Text>
               <Text style={gameStyles.infoText}>Release Date: </Text>
               <Text style={gameStyles.gameInfoText}>
                 {release_dates
