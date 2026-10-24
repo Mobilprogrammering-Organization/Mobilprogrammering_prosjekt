@@ -15,14 +15,15 @@ test("LikeToggle increases count total by 1", () => {
 
     try {
 
-        render(<LikeToggle/>)        // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
+        render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
 
         expect(screen.getByText("🔥 10"))   // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10")
                                              // ettersom at .mockReturnValue setter den til 10 
+                                             
 
         const knapp = screen.getByText("🔥 10");    // Finner tekstelementet som inneholder "🔥 10" 
 
-        fireEvent.press(knapp);      // Simulerer en knappe-trykk
+        fireEvent.press(knapp);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
 
         expect(screen.getByText("🔥 11")).toBeTruthy();  // Hva det "ønskelig resultatet" skal være etter at knappen er trykket av fireEvent.
 
