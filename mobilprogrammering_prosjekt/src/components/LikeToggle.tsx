@@ -31,9 +31,10 @@ export default function LikeToggle() {
   }
     return (
     <View style={styles.container}>
-        <Pressable onPress={toggleLike}style={[styles.container, 
-                                                activeLike && styles.activeContainer, 
-                                                activeLike && isTablet && styles.activeContainer_tablet,
+        <Pressable onPress={toggleLike}style={[
+          styles.container, 
+          activeLike && styles.activeContainer, 
+          activeLike && isTablet && styles.activeContainer_tablet,
   ]}>
 
             <Text style={[styles.text, isTablet && styles.text_tablet]}>🔥 {count}</Text>
