@@ -17,14 +17,12 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
 
         // DEL 1 
         // Fra ikke-enda like'a til like
-        // Gjenbruker for 'LikeToggle_like.test.tsx' her
+        // Gjenbruker for 'LikeToggle_like.test.tsx' her, bare med annen startverdi
 
 
-        render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
+        render(<LikeToggle/>)              
 
-        expect(screen.getByText("🔥 20")).toBeOnTheScreen();   // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10") 
-                                                                // ettersom at .mockReturnValue setter den til 10 
-                                        
+        expect(screen.getByText("🔥 20")).toBeOnTheScreen();   
                                              
 
         const trykk = screen.getByText("🔥 20");    
