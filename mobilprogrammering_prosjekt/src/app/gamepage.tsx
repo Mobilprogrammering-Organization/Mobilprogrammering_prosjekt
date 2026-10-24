@@ -25,7 +25,8 @@ export default function GamePage() {
     );
   }, [id, game]);
 
-  const { name, cover, genres, rating, release_dates, summary } = game;
+  const { name, cover, genres, platforms, rating, release_dates, summary } =
+    game;
 
   return (
     <React.Suspense fallback={<ActivityIndicator />}>
@@ -43,7 +44,11 @@ export default function GamePage() {
               </Text>
               <Text style={gameStyles.infoText}>Genres: </Text>
               <Text style={gameStyles.gameInfoText}>
-                {genres?.map((genre) => genre.name).join(", ") ?? "N/A"}
+                {genres?.map((genre) => genre.name).join(", ")}
+              </Text>
+              <Text style={gameStyles.infoText}>Platforms: </Text>
+              <Text style={gameStyles.gameInfoText}>
+                {platforms?.map((platform) => platform.name).join(", ")}
               </Text>
               <Text style={gameStyles.infoText}>Rating: </Text>
               <Text style={gameStyles.gameInfoText}>{rating}</Text>
