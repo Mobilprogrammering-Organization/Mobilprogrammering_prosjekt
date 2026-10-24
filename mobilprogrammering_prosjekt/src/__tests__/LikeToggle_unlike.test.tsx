@@ -7,7 +7,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
     
     
         // Brukes til å bestemme hva Math.random() skal returnere.
-        // .mockReturnValue(0.1) betyr da 0.1 * 100, i dette tilfellet 20. 
+        // .mockReturnValue(0.1) betyr da 0.2 * 100, i dette tilfellet 20. 
         // Vankeslig å teste en verdi vi ikke vet hva verdien er, derav "tvinge" en startsverdi
      const randomSpy = jest.spyOn(Math, "random").mockReturnValue(0.2);        
 
@@ -25,7 +25,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
         expect(screen.getByText("🔥 20")).toBeOnTheScreen();   
                                              
 
-        const trykk = screen.getByText("🔥 20");    
+        const trykk = screen.getByTestId("like-button");    
 
         fireEvent.press(trykk);      
 
@@ -36,7 +36,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
         // Fra likt til ikke-like lengre.
 
 
-        const trykk2 = screen.getByText("🔥 21");    
+        const trykk2 = screen.getByTestId("like-button");    
 
         fireEvent.press(trykk2);      
 
