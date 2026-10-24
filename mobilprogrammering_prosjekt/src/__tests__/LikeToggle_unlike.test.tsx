@@ -7,9 +7,9 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
     
     
         // Brukes til å bestemme hva Math.random() skal returnere.
-        // .mockReturnValue(0.1) betyr da 0.1 * 100, i dette tilfellet 10. 
-        // Vankeslig å teste en verdi vi ikke vet hva er, derav "tvinge" en startsverdi
-     const randomSpy = jest.spyOn(Math, "random").mockReturnValue(0.2);      // BYTTA OM JF       
+        // .mockReturnValue(0.1) betyr da 0.1 * 100, i dette tilfellet 20. 
+        // Vankeslig å teste en verdi vi ikke vet hva verdien er, derav "tvinge" en startsverdi
+     const randomSpy = jest.spyOn(Math, "random").mockReturnValue(0.2);        
 
 
     try {
@@ -22,15 +22,16 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
 
         render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
 
-        expect(screen.getByText("🔥 20"))   // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10")
-                                             // ettersom at .mockReturnValue setter den til 10 
+        expect(screen.getByText("🔥 20")).toBeOnTheScreen();   // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10") 
+                                                                // ettersom at .mockReturnValue setter den til 10 
+                                        
                                              
 
-        const trykk = screen.getByText("🔥 20");    // Finner tekstelementet som inneholder "🔥 10" 
+        const trykk = screen.getByText("🔥 20");    
 
-        fireEvent.press(trykk);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
+        fireEvent.press(trykk);      
 
-        expect(screen.getByText("🔥 21")).toBeTruthy();  // Hva det "ønskelig resultatet" skal være etter at knappen er trykket av fireEvent.
+        expect(screen.getByText("🔥 21")).toBeOnTheScreen();  
 
 
         // DEL 2
@@ -42,7 +43,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
         fireEvent.press(trykk2);      
 
 
-        expect(screen.getByText("🔥 20")).toBeTruthy()
+        expect(screen.getByText("🔥 20")).toBeOnTheScreen();
 
 
 
