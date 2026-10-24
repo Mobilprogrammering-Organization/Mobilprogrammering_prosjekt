@@ -25,7 +25,8 @@ test("LikeToggle increases count total by 1", () => {
 
         fireEvent.press(knapp);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
 
-        expect(screen.getByText("🔥 11")).toBeOnTheScreen();  // Hva det "ønskelig resultatet" skal være etter at knappen er trykket av fireEvent.
+        expect(screen.getByText("🔥 11")).toBeOnTheScreen();  // Hva det "ønskelig resultatet" skal være på skjermen etter 
+                                                               // at knappen er trykket av fireEvent.
 
 
     } finally {
