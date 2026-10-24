@@ -1,10 +1,9 @@
 import LikeToggle from "@/components/LikeToggle";
 import { render, screen, fireEvent } from "@testing-library/react-native";
 
-// Simpel test for å komme inn i det
-// Overdreven kommentering for min egen del
+// 
 
-test("LikeToggle increases count total by 1, and when 'in-liked', decreases the value by 1", () => {
+test("LikeToggle increases count total by 1, and when 'un-liked', decreases the value by 1", () => {
     
     
         // Brukes til å bestemme hva Math.random() skal returnere.
@@ -15,17 +14,37 @@ test("LikeToggle increases count total by 1, and when 'in-liked', decreases the 
 
     try {
 
+
+        // DEL 1 
+        // Fra ikke-enda like'a til like
+        // Gjenbruker for 'LikeToggle_like.test.tsx' her
+
+
         render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
 
         expect(screen.getByText("🔥 20"))   // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10")
                                              // ettersom at .mockReturnValue setter den til 10 
                                              
 
-        const knapp = screen.getByText("🔥 20");    // Finner tekstelementet som inneholder "🔥 10" 
+        const trykk = screen.getByText("🔥 20");    // Finner tekstelementet som inneholder "🔥 10" 
 
-        fireEvent.press(knapp);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
+        fireEvent.press(trykk);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
 
         expect(screen.getByText("🔥 21")).toBeTruthy();  // Hva det "ønskelig resultatet" skal være etter at knappen er trykket av fireEvent.
+
+
+        // DEL 2
+        // Fra likt til ikke-like lengre.
+
+
+        const trykk2 = screen.getByText("🔥 21");    
+
+        fireEvent.press(trykk2);      
+
+
+        expect(screen.getByText("🔥 20")).toBeTruthy()
+
+
 
 
     } finally {
