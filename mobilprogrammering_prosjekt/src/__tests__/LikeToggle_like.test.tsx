@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react-native";
 // Simpel test for å komme inn i det
 // Overdreven kommentering for min egen del
 
-test("LikeToggle increases count total by 1", () => {
+test("LikeToggle increases count total by 1", async () => {
     
     
         // Brukes til å bestemme hva Math.random() skal returnere.
@@ -15,7 +15,7 @@ test("LikeToggle increases count total by 1", () => {
 
     try {
 
-        render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
+        await render(<LikeToggle/>)               // Rendrer komponenten slik at vi kan teste komponenten uten Expo Go
 
         expect(screen.getByText("🔥 10")).toBeOnTheScreen()  // Setter en forventning at teksten i likekanppen er "slik" ("🔥 10")
                                              // ettersom at .mockReturnValue setter den til 10 

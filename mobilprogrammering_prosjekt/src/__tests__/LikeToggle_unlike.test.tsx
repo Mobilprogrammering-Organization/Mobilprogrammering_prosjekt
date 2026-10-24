@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react-native";
 
 // 
 
-test("LikeToggle increases count total by 1, and when 'un-liked', decreases the value by 1", () => {
+test("LikeToggle increases count total by 1, and when 'un-liked', decreases the value by 1", async () => {
     
     
         // Brukes til å bestemme hva Math.random() skal returnere.
@@ -20,7 +20,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
         // Gjenbruker for 'LikeToggle_like.test.tsx' her, bare med annen startverdi
 
 
-        render(<LikeToggle/>)              
+        await render(<LikeToggle/>)              
 
         expect(screen.getByText("🔥 20")).toBeOnTheScreen();   
                                              
