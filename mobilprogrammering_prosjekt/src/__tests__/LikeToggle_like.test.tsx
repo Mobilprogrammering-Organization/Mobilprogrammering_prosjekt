@@ -23,7 +23,7 @@ test("LikeToggle increases count total by 1", async () => {
 
         const knapp = screen.getByText("🔥 10");    // Finner tekstelementet som inneholder "🔥 10" 
 
-        fireEvent.press(knapp);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
+        await fireEvent.press(knapp);      // Simulerer en knappe-trykk der det står "🔥 10"   (i koden; <Text>"🔥 {count}"</Text>) 
 
         expect(screen.getByText("🔥 11")).toBeOnTheScreen();  // Hva det "ønskelig resultatet" skal være på skjermen etter 
                                                                // at knappen er trykket av fireEvent.

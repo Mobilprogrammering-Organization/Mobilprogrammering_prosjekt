@@ -27,7 +27,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
 
         const trykk = screen.getByTestId("like-button");    
 
-        fireEvent.press(trykk);      
+        await fireEvent.press(trykk);      
 
         expect(screen.getByText("🔥 21")).toBeOnTheScreen();  
 
@@ -38,7 +38,7 @@ test("LikeToggle increases count total by 1, and when 'un-liked', decreases the 
 
         const trykk2 = screen.getByTestId("like-button");    
 
-        fireEvent.press(trykk2);      
+        await fireEvent.press(trykk2);      
 
 
         expect(screen.getByText("🔥 20")).toBeOnTheScreen();
