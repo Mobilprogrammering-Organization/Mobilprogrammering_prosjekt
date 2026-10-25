@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 // dokumentasjon: https://react-native-async-storage.github.io/2.0/Usage/
 
 
-const STORAGE_KEY = "myGames"
+const STORAGE_KEY = "myGames"     // "Nøkkeln" som brukes for å lagre spillene i AsyncStorage
 
 
 
@@ -24,7 +24,7 @@ export async function getSavedGames(): Promise<number[]> {
     } else {
 
         return [];
-    }
+    } 
         
 }
 
