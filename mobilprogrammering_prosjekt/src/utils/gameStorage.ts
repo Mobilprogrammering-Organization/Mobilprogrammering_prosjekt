@@ -3,12 +3,35 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
+
+// dokumentasjon: https://react-native-async-storage.github.io/2.0/Usage/
+
+
 const STORAGE_KEY = "myGames"
 
 export async function getSavedGames(): Promise<number[]> {
-
+    // Henter spill
     const data = await AsyncStorage.getItem(STORAGE_KEY)
 
 
+    if (data) {
+        return JSON.parse(data);
 
+    } else {
+
+        return [];
+    }
+        
+}
+
+export async function saveGame(gameId: number): Promise<void> {
+    // Henter spill som man har
+    const savedGames = await getSavedGames();
+    
+    if (!savedGames.includes(gameId)) {
+        
+        savedGames.push(gameId);
+        
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(savedGames));
+    }
 }
