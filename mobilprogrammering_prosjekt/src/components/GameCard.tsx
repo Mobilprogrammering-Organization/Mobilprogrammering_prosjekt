@@ -31,27 +31,37 @@ export function GameCard({
             {name}
           </Text>
         </Link>
-        <Text style={gameStyles.infoText}>Genres: </Text>
-        <Text style={gameStyles.gameInfoText}>
-          {genres?.map((genre) => genre.name).join(", ")}
-        </Text>
-        <Text style={gameStyles.infoText}>Platforms: </Text>
-        <Text style={gameStyles.gameInfoText}>
-          {platforms?.map((platform) => platform.name).join(", ")}
-        </Text>
-        <Text style={gameStyles.infoText}>Rating: </Text>
-        <Text style={gameStyles.gameInfoText}>
-          {rating ? `${Math.round(rating)}/100` : "N/A"}
-        </Text>
-        <Text style={gameStyles.infoText}>Release Date: </Text>
-        <Text style={gameStyles.gameInfoText}>
-          {release_dates
-            ?.map((releaseDate) => releaseDate.human)
-            .join(", ")
-            .slice(0, 12)}
-        </Text>
-        <Text style={gameStyles.infoText}>Description: </Text>
-        <Text style={gameStyles.gameInfoText}>{summary}</Text>
+        <View>
+          <Text style={gameStyles.infoText}>Genres: </Text>
+          <Text style={gameStyles.gameInfoText}>
+            {genres?.map((genre) => genre.name).join(", ")}
+          </Text>
+        </View>
+        <View>
+          <Text style={gameStyles.infoText}>Platforms: </Text>
+          <Text style={gameStyles.gameInfoText}>
+            {platforms?.map((platform) => platform.name).join(", ")}
+          </Text>
+        </View>
+        <View>
+          <Text style={gameStyles.infoText}>Rating: </Text>
+          <Text style={gameStyles.gameInfoText}>
+            {rating ? `${Math.round(rating)}/100` : "N/A"}
+          </Text>
+        </View>
+        <View>
+          <Text style={gameStyles.infoText}>Release Date: </Text>
+          <Text style={gameStyles.gameInfoText}>
+            {release_dates
+              ?.map((releaseDate) => releaseDate.human)
+              .join(", ")
+              .slice(0, 12)}
+          </Text>
+        </View>
+        <View>
+          <Text style={gameStyles.infoText}>Description: </Text>
+          <Text style={gameStyles.gameInfoText}>{summary}</Text>
+        </View>
         {children}
       </View>
     </View>
@@ -70,6 +80,7 @@ const gameStyles = StyleSheet.create({
     backgroundColor: "#d7d7d7",
     padding: 10,
     textAlign: "center",
+    gap: 5,
   },
   infoText: {
     fontWeight: "bold",
