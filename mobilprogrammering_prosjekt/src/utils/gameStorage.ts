@@ -43,3 +43,18 @@ export async function saveGame(gameId: number): Promise<void> {
 }
 
 
+
+export async function removeGame(gameId: number): Promise<void> {
+    const savedGames = await getSavedGames();
+
+    const updatedGames = savedGames.filter((id) => id !== gameId); // Fjerner spillet fra listen
+
+    await AsyncStorage.setItem(
+        STORAGE_KEY, 
+        JSON.stringify(updatedGames)); // Lagrer den oppdaterte listen
+
+}
+
+
+
+
