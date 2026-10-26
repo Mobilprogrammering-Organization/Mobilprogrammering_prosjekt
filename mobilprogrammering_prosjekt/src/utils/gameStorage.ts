@@ -1,4 +1,5 @@
 
+
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 
@@ -53,9 +54,4 @@ export async function removeGame(gameId: number): Promise<void> {
         JSON.stringify(updatedGames)); // Lagrer den oppdaterte listen
 
 }
-
-
-
-
-
 
