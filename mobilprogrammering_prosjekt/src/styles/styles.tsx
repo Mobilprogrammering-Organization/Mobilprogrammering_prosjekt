@@ -78,9 +78,8 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
   },
-  loadingIndicator: {
+  loading: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
   },
 });
