@@ -9,6 +9,8 @@ import { styles } from "@/styles/styles";
 import { useCreateUser } from "@/api/user-api";
 
 export default function CreateAccountPage() {
+  //FEilsøking:
+  console.log("CreateAccountPage lastet inn");
   const router = useRouter();
   const newUser = useCreateUser();
 
@@ -22,6 +24,9 @@ export default function CreateAccountPage() {
       password: "",
     },
     onSubmit: async ({ value }) => {
+      //Feilsøk
+      console.log("onSubmit kjører", value);
+      
       if (value.username.length < 3) {
         setErrorMessage("Username must be at least 3 characters long.");
         return;
@@ -36,9 +41,14 @@ export default function CreateAccountPage() {
       try {
         await newUser.mutateAsync(value);
         setConfirmationMessage("Account created successfully.");
-      } catch {
-        setErrorMessage("Account could not be created!");
-      }
+      } catch (error: unknown) {
+      console.error('Oppretting feilet:', error);
+
+    const message =
+    error instanceof Error ? error.message : String(error);
+
+    setErrorMessage(message);
+}
 
 /*    
       setErrorMessage("");
