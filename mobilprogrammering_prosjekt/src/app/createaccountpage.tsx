@@ -6,9 +6,11 @@ import type { User } from "@/types/user";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
+import { useCreateUser } from "@/api/user-api";
 
 export default function CreateAccountPage() {
   const router = useRouter();
+  const newUser = useCreateUser();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmationMessage, setConfirmationMessage] = useState<string>("");
@@ -29,8 +31,18 @@ export default function CreateAccountPage() {
         return;
       }
 
-      console.log("User data: ", value);
       setErrorMessage("");
+
+      try {
+        await newUser.mutateAsync(value);
+        setConfirmationMessage("Account created successfully.");
+      } catch {
+        setErrorMessage("Account could not be created!");
+      }
+
+/*    
+      setErrorMessage("");
+      console.log("User data: ", value);
       setConfirmationMessage("Account created successfully.");
 
       setTimeout(() => {
@@ -40,9 +52,10 @@ export default function CreateAccountPage() {
           id: value.id,
           username: value.username,
         }
-      })}, 1000);
+      })}, 1000); */
+
     }
-  })
+  });
 
   return (
     <View style={styles.container}>
@@ -72,11 +85,13 @@ export default function CreateAccountPage() {
               placeholder="Create a password"
               secureTextEntry={true}
             />
-          </>
+          </> 
         )}
       />
 
-      <Pressable onPress={() => form.handleSubmit()}>
+      <Pressable
+        disabled={newUser.isPending} 
+        onPress={() => form.handleSubmit()}>
         <Text style={styles.button}>Create account</Text>
       </Pressable>
 
