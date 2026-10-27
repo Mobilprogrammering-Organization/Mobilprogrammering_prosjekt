@@ -48,6 +48,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="users"
+        options={{
+          title: "Users",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeFreeSolid name="user" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="dummy"
         options={{
           title: "Dummy page",
