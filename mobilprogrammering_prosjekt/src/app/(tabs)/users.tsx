@@ -1,3 +1,6 @@
+//Claude chatlog explaining how to extract data from local API responses
+//https://claude.ai/share/f407f04f-7e44-411d-9697-0560aad4c596
+
 import React, { useEffect } from "react";
 import {
   View,
