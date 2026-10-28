@@ -1,5 +1,4 @@
-// https://truelist.io/blog/javascript-validate-email
-
+// Email validation via regexp
 const emailRegExp : RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export function isValidEmailFormat (email: string): boolean {
