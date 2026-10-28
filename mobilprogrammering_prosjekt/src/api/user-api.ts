@@ -9,7 +9,7 @@ export type User = {
     password: string
 }
 
-const WEBAPP_BASE_URL = "http://10.44.35.167:5173/"
+const WEBAPP_BASE_URL = "http://10.44.35.170:5173/"
 
 export function useCreateUser () {
     const queryClient = useQueryClient();
@@ -27,27 +27,33 @@ export function useCreateUser () {
                 body: JSON.stringify(value),
             });
 
+            const body = await response.json();
+
+console.log("Svar fra serveren:", body); // Ikke logg passordfeltet
+return body;
+
             //Feilsøking:
-            console.log('HTTP-status:', response.status);
+/*             console.log('HTTP-status:', response.status);
             console.log('OK:', response.ok); 
+            console.log('Response-object: ', response);
+            console.log('Response-object JSON: ', JSON.stringify(response)); */
 /* 
             const responseText = await response.text();
             console.log('API-svar:', responseText);
  */            
 
-            if (!response.ok) {
+/*             if (!response.ok) {
                 throw new Error('Kunne ikke opprette bruker');
             }
 
-            return response.json();
+            return response.json(); */
         },
         onSuccess: (response) => {
             router.replace({
                 pathname: "/userpage",
                 params: {
                     id: response.data.id,
-                    email: "123@api.com",
-                username: response.data.username,
+                    username: response.data.username,
             }
             });
         }
