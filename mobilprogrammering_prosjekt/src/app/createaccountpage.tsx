@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
 import { useCreateUser } from "@/api/user-api";
+import { isValidEmailFormat } from "@/utils/validation";
 
 export default function CreateAccountPage() {
   //FEilsøking:
@@ -34,6 +35,11 @@ export default function CreateAccountPage() {
       }
       if (value.password.length < 3) {
         setErrorMessage("Password must be at least 3 characters long.");
+        return;
+      }
+
+            if (!isValidEmailFormat(value.email)) {
+        setErrorMessage("Please enter a valid email.");
         return;
       }
 
