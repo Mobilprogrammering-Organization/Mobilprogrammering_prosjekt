@@ -4,9 +4,9 @@ CheckPoint er et studentprosjekt utviklet i emnet **Mobilprogrammering** ved Hø
 
 ## Om prosjektet og hva appen gjør
 
-CheckPoint er en mobilapp for spillinteresserte. Formålet med appen er å gjøre det enkelt å holde seg oppdatert på hva som skjer i spillverdenen, samtidig som brukeren kan holde oversikt over spillene sine på ett sted.
+CheckPoint er en interaktiv nettside for spillinteresserte. Formålet med appen er å finne og søke opp mange ulike spill som finnes, samtidig som brukeren kan holde oversikt over spillene de har lagret selv på ett sted.
 
-Appen skal blant annet kunne vise spillnyheter, nylig lanserte spill og informasjon om forskjellige spill. Brukeren skal også kunne opprette en personlig bruker og lage egne spillister.
+Appen skal blant annet kunne vise spillartikler, nylig lanserte spill og informasjon om forskjellige spill. Brukeren skal også kunne opprette en personlig bruker og lage egne spillister.
 
 Prosjektet utvikles som en del av emnet Mobilprogrammering og skal demonstrere bruk av moderne mobilutvikling, eksterne datakilder, komponentbasert utvikling, state-håndtering, navigasjon og testing.
 
@@ -46,6 +46,8 @@ Planlagt funksjonalitet i CheckPoint inkluderer blant annet:
 Appen skal hente informasjon fra minst én ekstern datakilde/API. <br>
 Så langt:
 - IGDB - https://api-docs.igdb.com/#getting-started
+
+*En del av det som står her vil ikke være oppnådd til leveringsdatoen på grunn av at vi underestimerte omfanget og vanskeligheten av å utvikle prosjektet*
 
 ## Avgrensninger
 
@@ -101,6 +103,8 @@ Tester kjøres med jest rammeverket. Selve testfilene ligger i "__tests__" mappe
 Alle ruter man kan navigere til i appen ligger i "app" mappen. "(tabs)" mappen inneholder sider man kan navigere til fra navigasjonsmenyen på bunnen av skjermen.
 
 Dummy data ligger innenfor "data" mappen. Den faktiske dataen vi bruker i prosjektet er fra IGDB-API-et. Det er zod-schemaer for typene vi bruker inni "types" mappen. 
+
+For å bruke IGDB-API-et trygt så måtte vi lagre nøklene et sted som ikke eksponerer dem i klartekst. Derfor er det best at de som ønsker å bruke applikasjonen kan stoles på og spør om nøklene selv direkte slik at nøklene forhåpentligvis ikke lekkes ut. 
 
 Komponenter som rendrer de faktiske navigerbare sidene ligger i "app". Underliggende komponenter som sidene i "app" bruker ligger i "components". Å ha komponenter uavhengig fra sidene skaper fleksibilitet og mulighet til å bruke dem på tvers av sider potensielt med annerledes logikk sendt via props.
 
