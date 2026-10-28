@@ -4,6 +4,7 @@ import { router } from "expo-router"
 
 export type User = {
     id: string
+    email?: string
     username: string
     password: string
 }
@@ -27,12 +28,12 @@ export function useCreateUser () {
             });
 
             //Feilsøking:
-/*             console.log('HTTP-status:', response.status);
-            console.log('OK:', response.ok);    
-
+            console.log('HTTP-status:', response.status);
+            console.log('OK:', response.ok); 
+/* 
             const responseText = await response.text();
-            console.log('API-svar:', responseText); */
-            
+            console.log('API-svar:', responseText);
+ */            
 
             if (!response.ok) {
                 throw new Error('Kunne ikke opprette bruker');
@@ -44,7 +45,8 @@ export function useCreateUser () {
             router.replace({
                 pathname: "/userpage",
                 params: {
-                id: response.data.id,
+                    id: response.data.id,
+                    email: "123@api.com",
                 username: response.data.username,
             }
             });
