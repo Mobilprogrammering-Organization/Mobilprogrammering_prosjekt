@@ -21,6 +21,7 @@ export default function CreateAccountPage() {
     defaultValues: {
       id: (Math.floor(Math.random() * 1000000)).toString(),
       username: "",
+      email: "",
       password: "",
     },
     onSubmit: async ({ value }) => {
@@ -79,6 +80,20 @@ export default function CreateAccountPage() {
               value={field.state.value}
               onChangeText={(value) => field.handleChange(value)}
               placeholder="Create a username"
+            />
+          </>
+        )}
+      />
+      <form.Field
+        name="email"
+        children={(field) => (
+          <>
+            <Text style={styles.mainText}>Email:</Text>
+            <TextInput
+              style={styles.fieldInput}
+              value={field.state.value}
+              onChangeText={(value) => field.handleChange(value)}
+              placeholder="Enter your email"
             />
           </>
         )}
