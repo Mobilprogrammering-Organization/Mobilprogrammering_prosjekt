@@ -20,6 +20,7 @@ import React from "react";
 import { getGames } from "@/api/testApi";
 import { useQuery } from "@tanstack/react-query";
 import { colors } from "@/styles/theme";
+import { styles } from "@/styles/styles";
 
 const gamesFromIGDB = `
 fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
@@ -38,21 +39,13 @@ export function GameList() {
     queryFn: () => getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? ""),
   });
 
-  if (isLoading) {
-    return (
-      <View>
-        <ActivityIndicator size="large" color={colors["brand-black"]} />
-      </View>
-    );
-  }
-
-  if (isError) {
-    return <Text>Noe gikk galt under henting av spill...</Text>;
-  }
-
   return (
     <ScrollView>
-      {games ? (
+      {isLoading ? (
+        <ActivityIndicator size="large" color={colors["brand-black"]} />
+      ) : isError ? (
+        <Text>Something went wrong when fetching games...</Text>
+      ) : games ? (
         games.map((game) => (
           <GameCard key={game.id} game={game}>
             <LikeToggle />

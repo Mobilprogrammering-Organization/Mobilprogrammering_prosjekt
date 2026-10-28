@@ -26,6 +26,12 @@ export const styles = StyleSheet.create({
     margin: 10,
     textAlign: "center",
   },
+  listText: {
+    fontSize: 24,
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    marginBottom: 10,
+  },
   fieldInput: {
     fontSize: 30,
     borderStyle: "solid",
