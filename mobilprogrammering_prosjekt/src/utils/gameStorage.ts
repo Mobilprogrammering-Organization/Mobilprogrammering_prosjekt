@@ -13,7 +13,7 @@ const STORAGE_KEY = "myGames"     // "Nøkkeln" som brukes for å lagre spillene
 
 
 export async function getSavedGames(): Promise<number[]> {
-    
+try {
     // Henter data fra lagringa
     const data = await AsyncStorage.getItem(STORAGE_KEY)
 
@@ -26,6 +26,11 @@ export async function getSavedGames(): Promise<number[]> {
         return [];
     } 
         
+} catch (error) {
+    console.error("Kunne ikke hente lagrede spill:", error);
+    throw error;
+}
+    
 }
 
 export async function saveGame(gameId: number): Promise<void> {
@@ -33,7 +38,7 @@ export async function saveGame(gameId: number): Promise<void> {
     const savedGames = await getSavedGames();
     
     
-    if (!savedGames.includes(gameId)) { // Hvis spillet finnes, sååå
+    if (!savedGames.includes(gameId)) { // Hvis spillet IKKE finns i lista, legg det til
         
         savedGames.push(gameId);
         
