@@ -22,6 +22,9 @@ test("saveGame should save a game ID to AsyncStorage", async () => {
     await saveGame(gameId);
 
     expect(AsyncStorage.setItem).toHaveBeenCalledWith("myGames", JSON.stringify([gameId]));
+    expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
 
+    
+    expect(AsyncStorage.getItem).toHaveBeenCalledWith("myGames");
     
 });

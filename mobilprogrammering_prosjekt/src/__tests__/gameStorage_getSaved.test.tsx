@@ -3,7 +3,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSavedGames } from "../utils/gameStorage";
 
-    // Henter EN funksjon fra AS
+    // erstatter AsyncStorage med en mock som har getItem()
 jest.mock("@react-native-async-storage/async-storage", () => ({
     
     __esModule: true,  // erstatter default export med en mock
@@ -21,9 +21,15 @@ test("getSavedGames should return saved games", async () => {
         JSON.stringify(gameIds)
     );
 
-
+        // func som skal testes
     const savedGames = await getSavedGames();
 
-    // den faktiske kontrollen om noe er lagra
+    // faktiske kontrollen at funksjonen returnere de lagrede gameID-an
     expect(savedGames).toEqual(gameIds);
+
+    expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
+
+     // sjekk om nøkkelen blir brukt
+    expect(AsyncStorage.getItem).toHaveBeenCalledWith("myGames");
+
 });
