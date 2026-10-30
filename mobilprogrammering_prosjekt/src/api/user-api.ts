@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { router } from "expo-router"
+import { Platform } from "react-native"
 
 
 export type User = {
@@ -9,7 +10,10 @@ export type User = {
     password: string
 }
 
-const WEBAPP_BASE_URL = "http://10.44.35.170:5173/"
+
+//Følger oppsett fraundervisning:
+const HOST = Platform.OS === "android" ? "10.0.2.2" : "localhost";
+const WEBAPP_BASE_URL = `http://${HOST}:5173/`
 
 export function useCreateUser () {
     const queryClient = useQueryClient();
