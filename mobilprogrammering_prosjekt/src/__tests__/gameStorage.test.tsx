@@ -7,8 +7,8 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
     
     __esModule: true,
     default: {
-        getItem: jest.fn(),
-        setItem: jest.fn(),
+        getItem: jest.fn(),          // Mocker getItem og setItem
+        setItem: jest.fn(),          // for å simulere lagring i AS
     },
     
 }));
@@ -16,7 +16,13 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
 test("saveGame should save a game ID to AsyncStorage", async () => {
     const gameId = 12345;
 
+
+    jest.mocked(AsyncStorage.getItem).mockResolvedValue(null);
+
     await saveGame(gameId);
 
     expect(AsyncStorage.setItem).toHaveBeenCalledWith("myGames", JSON.stringify([gameId]));
+
+
+    
 });
