@@ -53,6 +53,7 @@ return body;
             return response.json(); */
         },
         onSuccess: (response) => {
+            console.log("onSuccess kjører", response); //FEilsøking
             router.replace({
                 pathname: "/userpage",
                 params: {
