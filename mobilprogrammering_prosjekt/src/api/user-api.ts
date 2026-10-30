@@ -21,9 +21,6 @@ export function useCreateUser () {
 
     return useMutation({
         mutationFn: async (value: User) => {
-            // Feilsøk
-            console.log('mutationFn kjører', value);
-            console.log("Sender til: ", CREATE_USER_URL);
 
             const response = await fetch(CREATE_USER_URL, {
                 method: 'POST',
@@ -31,26 +28,12 @@ export function useCreateUser () {
                 body: JSON.stringify(value),
             });
 
-            const body = await response.json();
 
-console.log("Svar fra serveren:", body); // Ikke logg passordfeltet
-return body;
-
-            //Feilsøking:
-/*             console.log('HTTP-status:', response.status);
-            console.log('OK:', response.ok); 
-            console.log('Response-object: ', response);
-            console.log('Response-object JSON: ', JSON.stringify(response)); */
-/* 
-            const responseText = await response.text();
-            console.log('API-svar:', responseText);
- */            
-
-/*             if (!response.ok) {
-                throw new Error('Kunne ikke opprette bruker');
+            if (!response.ok) {
+                throw new Error('Could not create user');
             }
 
-            return response.json(); */
+            return response.json();
         },
         onSuccess: (response) => {
             router.replace({
