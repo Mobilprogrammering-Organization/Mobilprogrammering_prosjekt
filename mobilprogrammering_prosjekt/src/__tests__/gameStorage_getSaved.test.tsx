@@ -27,6 +27,7 @@ test("getSavedGames should return saved games", async () => {
     // faktiske kontrollen at funksjonen returnere de lagrede gameID-an
     expect(savedGames).toEqual(gameIds);
 
+    // sjekk om getItem ble kalt (1 gang)
     expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
 
      // sjekk om nøkkelen blir brukt

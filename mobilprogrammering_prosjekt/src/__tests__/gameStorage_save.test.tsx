@@ -21,10 +21,17 @@ test("saveGame should save a game ID to AsyncStorage", async () => {
 
     await saveGame(gameId);
 
+    // sjekk om den ble kalt med riktig nøkkel og verdi
     expect(AsyncStorage.setItem).toHaveBeenCalledWith("myGames", JSON.stringify([gameId]));
+    
+    // at metodene blir kalt 1 gang hver
     expect(AsyncStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(AsyncStorage.setItem).toHaveBeenCalledTimes(1);
+
+    // sjekk om den ble kalt med riktig nøkkel
+    expect(AsyncStorage.getItem).toHaveBeenCalledWith("myGames");
 
     
-    expect(AsyncStorage.getItem).toHaveBeenCalledWith("myGames");
+    
     
 });
