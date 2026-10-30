@@ -10,8 +10,7 @@ import { useCreateUser } from "@/api/user-api";
 import { isValidEmailFormat } from "@/utils/validation";
 
 export default function CreateAccountPage() {
-  //FEilsøking:
-  console.log("CreateAccountPage lastet inn");
+
   const router = useRouter();
   const newUser = useCreateUser();
 
@@ -26,9 +25,7 @@ export default function CreateAccountPage() {
       password: "",
     },
     onSubmit: async ({ value }) => {
-      //Feilsøk
-      console.log("onSubmit kjører", value);
-      
+
       if (value.username.length < 3) {
         setErrorMessage("Username must be at least 3 characters long.");
         return;
@@ -49,28 +46,13 @@ export default function CreateAccountPage() {
         await newUser.mutateAsync(value);
         setConfirmationMessage("Account created successfully.");
       } catch (error: unknown) {
-      console.error('Oppretting feilet:', error);
+          console.error('Oppretting feilet:', error);
 
-    const message =
-    error instanceof Error ? error.message : String(error);
+          const message =
+          error instanceof Error ? error.message : String(error);
 
-    setErrorMessage(message);
-}
-
-/*    
-      setErrorMessage("");
-      console.log("User data: ", value);
-      setConfirmationMessage("Account created successfully.");
-
-      setTimeout(() => {
-        router.replace({
-        pathname: "/userpage",
-        params: {
-          id: value.id,
-          username: value.username,
-        }
-      })}, 1000); */
-
+          setErrorMessage(message);
+      }
     }
   });
 
