@@ -15,7 +15,7 @@ export default function ArticlePage() {
       <Text style={styles.mainText}>{title}</Text>
       <Image
         style={{ width: 600, height: 300 }}
-        source={{ uri: articleImageURL }}
+        source={{ uri: articleImageURL ? articleImageURL : undefined }}
       ></Image>
       <Text style={styles.mainText}>{content}</Text>
     </View>

@@ -131,7 +131,7 @@ export default function CreateAccountPage() {
 
       <Text style={styles.mainText}>
         Already have an account?{" "}
-        <Link href="/loginpage" style={{ color: "blue" }}>
+        <Link href="/loginpage" replace style={{ color: "blue" }}>
           Login here
         </Link>
       </Text>
