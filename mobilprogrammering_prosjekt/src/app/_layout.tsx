@@ -1,9 +1,10 @@
 import { UserIcon } from "@/components/UserIcon";
-import { QueryClientProvider } from "@/context/QueryProvider";
+import { QueryClientProvider } from "@/auth/context/QueryProvider";
 import { styles } from "@/styles/styles";
 import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
 import { Image, Text } from "react-native";
+import { AuthProvider } from "@/auth/context/AuthContext";
 //import checkpoint from "../../assets/images/checkpoint/checkpoint.png";
 
 function CheckpointLogo() {
@@ -12,9 +13,11 @@ function CheckpointLogo() {
 
 export default function LayoutWithProviders() {
   return (
-    <QueryClientProvider>
-      <RootLayout />
-    </QueryClientProvider>
+    <AuthProvider user={null}>
+      <QueryClientProvider>
+        <RootLayout />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
@@ -36,6 +39,12 @@ function RootLayout() {
         name="userpage"
         options={{
           title: "User page",
+        }}
+      />
+      <Stack.Screen
+        name="loginpage"
+        options={{
+          title: "Login",
         }}
       />
       <Stack.Screen
