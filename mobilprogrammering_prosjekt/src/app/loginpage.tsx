@@ -45,7 +45,7 @@ export default function LoginPage() {
       setErrorMessage("");
 
       try {
-        //Logg inn brukeren
+        await loginUser.mutateAsync(value);
         setConfirmationMessage("Login successful.");
       } catch (error: unknown) {
         console.error("Login failed:", error);

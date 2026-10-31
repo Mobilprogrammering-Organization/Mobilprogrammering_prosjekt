@@ -58,5 +58,35 @@ export function useCreateUser() {
 }
 
 export function login() {
-  return null;
+  const LOGIN_URL = `${WEBAPP_BASE_URL}/login`;
+
+  return useMutation({
+    mutationFn: async (value: {
+      email: string;
+      username?: string;
+      password: string;
+    }) => {
+      const response = await fetch(LOGIN_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(value),
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not login");
+      }
+
+      return response.json();
+    },
+    onSuccess: (response) => {
+      router.replace({
+        pathname: "/userpage",
+        params: {
+          id: response.data.id,
+          email: response.data.email,
+          username: response.data?.username,
+        },
+      });
+    },
+  });
 }
