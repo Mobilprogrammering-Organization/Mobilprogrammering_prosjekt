@@ -57,7 +57,8 @@ export function useCreateUser() {
   });
 }
 
-export function login() {
+/*
+export function useLogin() {
   const LOGIN_URL = `${WEBAPP_BASE_URL}/login`;
 
   return useMutation({
@@ -73,7 +74,7 @@ export function login() {
       });
 
       if (!response.ok) {
-        throw new Error("Could not login");
+        throw new Error(response.status + " " + response.statusText);
       }
 
       return response.json();
@@ -90,3 +91,4 @@ export function login() {
     },
   });
 }
+*/

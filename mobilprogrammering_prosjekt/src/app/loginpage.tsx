@@ -4,15 +4,12 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { useForm } from "@tanstack/react-form";
-import type { User } from "@/types/user";
 import { useState } from "react";
-import { useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
-import { login } from "@/api/user-api";
-import { isValidEmailFormat } from "@/utils/validation";
+import { useAuth } from "@/auth/context/AuthContext";
 
 export default function LoginPage() {
-  const loginUser = login();
+  const { login } = useAuth();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmationMessage, setConfirmationMessage] = useState<string>("");
@@ -45,7 +42,7 @@ export default function LoginPage() {
       setErrorMessage("");
 
       try {
-        await loginUser.mutateAsync(value);
+        await login(value.email, value.password);
         setConfirmationMessage("Login successful.");
       } catch (error: unknown) {
         console.error("Login failed:", error);
@@ -103,10 +100,7 @@ export default function LoginPage() {
         )}
       />
 
-      <Pressable
-        //disabled={loginUser.isPending}
-        onPress={() => form.handleSubmit()}
-      >
+      <Pressable disabled={false} onPress={() => form.handleSubmit()}>
         <Text style={styles.button}>Login</Text>
       </Pressable>
 

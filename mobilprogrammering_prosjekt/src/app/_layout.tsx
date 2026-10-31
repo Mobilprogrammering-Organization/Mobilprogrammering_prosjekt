@@ -13,7 +13,7 @@ function CheckpointLogo() {
 
 export default function LayoutWithProviders() {
   return (
-    <AuthProvider user={null}>
+    <AuthProvider>
       <QueryClientProvider>
         <RootLayout />
       </QueryClientProvider>
