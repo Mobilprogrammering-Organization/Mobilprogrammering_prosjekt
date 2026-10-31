@@ -19,11 +19,17 @@ export function GameCard({
 
   return (
     <View style={gameStyles.game}>
-      <Link href={{ pathname: `/gamepage`, params: { id: game.id } }}>
-        <Image
-          style={{ width: 300, height: 300 }}
-          source={{ uri: cover?.image_id }}
-        />
+      <Link href={{ pathname: `/gamepage`, params: { id: game.id } }} asChild>
+        <Pressable>
+          <Image
+            style={{ width: 264, height: 374, alignSelf: "center" }}
+            source={{
+              uri: cover?.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${cover?.image_id}.jpg`
+                : undefined,
+            }}
+          />
+        </Pressable>
       </Link>
       <View style={gameStyles.gameInfo}>
         <Link href={{ pathname: `/gamepage`, params: { id: game.id } }}>

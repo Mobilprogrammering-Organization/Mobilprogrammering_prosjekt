@@ -71,8 +71,12 @@ export default function GamePage() {
             {game ? (
               <View>
                 <Image
-                  style={{ width: 300, height: 300 }}
-                  source={{ uri: cover?.image_id }}
+                  style={{ width: 264, height: 374, alignSelf: "center" }}
+                  source={{
+                    uri: cover?.image_id
+                      ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${cover?.image_id}.jpg`
+                      : undefined,
+                  }}
                 />
                 <View style={gameStyles.gameInfo}>
                   <Text style={[gameStyles.infoText, gameStyles.gameTitle]}>
