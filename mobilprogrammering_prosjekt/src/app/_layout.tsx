@@ -5,11 +5,6 @@ import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
 import { Image, Text } from "react-native";
 import { AuthProvider, useAuth } from "@/auth/context/AuthContext";
-//import checkpoint from "../../assets/images/checkpoint/checkpoint.png";
-
-function CheckpointLogo() {
-  //return <Image style={{ width: 50, height: 50 }} source={checkpoint} />;
-}
 
 export default function LayoutWithProviders() {
   return (

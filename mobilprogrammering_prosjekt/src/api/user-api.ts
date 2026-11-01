@@ -45,11 +45,15 @@ export async function useCreateUser(
     response.status === 401 ||
     response.status === 404
   ) {
-    throw new Error("Email and password fields cannot be empty.");
+    throw new Error(
+      "Email and password fields cannot be empty." + ` (${response.status})`,
+    );
   }
 
   if (response.status === 409) {
-    throw new Error("A user with this email already exists.");
+    throw new Error(
+      "A user with this email already exists." + ` (${response.status})`,
+    );
   }
 
   if (!response.ok || result?.ok === false) {
@@ -67,4 +71,29 @@ export async function useCreateUser(
   }
 
   return { user: parsed.data };
+}
+
+export async function useDeleteUser(userId: string): Promise<void> {
+  const response = await fetch(`${WEBAPP_BASE_URL}/users/${userId}`, {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+  });
+
+  const result = await response.json();
+
+  if (
+    response.status === 400 ||
+    response.status === 401 ||
+    response.status === 404
+  ) {
+    throw new Error(
+      "User not found or invalid request." + ` (${response.status})`,
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(`Could not delete user (${response.status})`);
+  }
+
+  return result;
 }

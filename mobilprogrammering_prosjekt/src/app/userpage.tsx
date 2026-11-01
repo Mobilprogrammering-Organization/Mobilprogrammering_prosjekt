@@ -12,7 +12,7 @@ export default function UserPage() {
       <Pressable style={styles.button} onPress={logout}>
         <Text style={styles.buttonText}>Log out</Text>
       </Pressable>
-      <Link style={styles.button} href="/deleteaccountpage">
+      <Link style={styles.dangerButton} href="/deleteaccountpage">
         <Text style={styles.buttonText}>Delete account</Text>
       </Link>
     </View>

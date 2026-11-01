@@ -6,8 +6,10 @@ import {
   StyleSheet,
   ActivityIndicator,
   ScrollView,
+  Pressable,
+  Linking,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Activity, useEffect, useState } from "react";
 import { GAMES } from "@/data/games";
 import { Game } from "@/types/game";
@@ -33,7 +35,7 @@ export default function GamePage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["game"],
+    queryKey: ["game", id],
     queryFn: () => getIGDBContent("games", gameWithID, CLIENT_ID ?? ""),
   });
 
@@ -124,10 +126,14 @@ export default function GamePage() {
                     </View>
                     <View>
                       <Text style={gameStyles.infoText}>Related sources: </Text>
-                      <Text style={gameStyles.gameInfoText}>
-                        {websites?.map((website) => website.url).join(", ") ??
-                          "N/A"}
-                      </Text>
+                      {websites?.map((website) => (
+                        <Pressable onPress={() => Linking.openURL(website.url)}>
+                          <Text key={website.url} style={gameStyles.link}>
+                            {website.url}
+                            {"\n"}
+                          </Text>
+                        </Pressable>
+                      ))}
                     </View>
                   </View>
                 </View>
@@ -169,5 +175,10 @@ const gameStyles = StyleSheet.create({
   },
   gameTitle: {
     fontSize: 24,
+  },
+  link: {
+    fontSize: 20,
+    color: "blue",
+    textDecorationLine: "underline",
   },
 });
