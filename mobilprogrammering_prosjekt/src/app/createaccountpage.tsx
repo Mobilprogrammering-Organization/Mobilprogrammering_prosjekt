@@ -5,7 +5,7 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm } from "@tanstack/react-form";
 import type { User } from "@/types/user";
 import { useState } from "react";
-import { Link, useRouter } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
 import { useAuth } from "@/auth/context/AuthContext";
 import { isValidEmailFormat } from "@/utils/validation";

@@ -2,7 +2,7 @@
 /*https://claude.ai/share/b9bcfa63-8997-4e41-b591-bdabbbd7a6f0*/
 
 import { View, Text, TextInput, Pressable } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { styles } from "@/styles/styles";
