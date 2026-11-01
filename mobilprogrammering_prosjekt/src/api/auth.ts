@@ -18,19 +18,22 @@ export async function login(
   email: string,
   password: string,
 ): Promise<{ user: ApiUser }> {
-  const response = await fetch(`${WEBAPP_BASE_URL}/api/v1/auth/login`, {
+  const response = await fetch(`${WEBAPP_BASE_URL}/auth/login`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ email: email, password: password }),
   });
 
-  const data = await response.json();
+  const result = await response.json();
 
   if (!response.ok) {
     throw new Error(
-      data.error?.message ?? `Could not log in (${response.status})`,
+      result.error?.message ?? `Could not log in (${response.status})`,
     );
   }
 
-  return z.object({ user: ApiUserSchema }).parse(data);
+  //Returnerer som { ok, data, code }
+  const payload = result.data?.user ?? result.data;
+
+  return { user: ApiUserSchema.parse(payload) };
 }
