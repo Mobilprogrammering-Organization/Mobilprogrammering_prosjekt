@@ -86,14 +86,6 @@ function RootLayout() {
       </Stack.Protected>
       <Stack.Protected guard={validUser}>
         <Stack.Screen
-          name="changepasswordpage"
-          options={{
-            title: "Change password",
-          }}
-        />
-      </Stack.Protected>
-      <Stack.Protected guard={validUser}>
-        <Stack.Screen
           name="deleteaccountpage"
           options={{
             title: "Delete account",

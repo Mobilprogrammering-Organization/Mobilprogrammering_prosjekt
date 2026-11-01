@@ -33,6 +33,19 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Protected guard={validUser}>
+        <Tabs.Screen
+          name="mygamespage"
+          options={{
+            title: "My Games",
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
+
       <Tabs.Screen
         name="articlespage"
         options={{
@@ -60,18 +73,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
-      <Tabs.Protected guard={validUser}>
-        <Tabs.Screen
-          name="mygamespage"
-          options={{
-            title: "My Games",
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tabs.Protected>
     </Tabs>
   );
 }
