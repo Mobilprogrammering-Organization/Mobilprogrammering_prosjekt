@@ -64,15 +64,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="dummy"
-        options={{
-          title: "Dummy page",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeFreeSolid name="question" color={color} size={size} />
-          ),
-        }}
-      />
+      <Tabs.Protected guard={validUser}>
+        <Tabs.Screen
+          name="randomnumberspage"
+          options={{
+            title: "Random Numbers",
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeFreeSolid name="dice" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }
