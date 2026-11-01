@@ -1,8 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
+import { saveGame, removeGame, isGameSaved } from "@/utils/gameStorage";
 
-export function AddButton() {
+export function AddButton({ gameId }: { gameId: number }) {
+  
   const [isAdded, setIsAdded] = useState(false);
+  const [isBusy, setIsBusy] = useState(true);
+
+  useEffect(() => {
+    isGameSaved(gameId)
+      .then(setIsAdded)
+      .catch(console.error)
+      .finally(() => setIsBusy(false));
+  }, [gameId]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Pressable style={isAdded ? styles.removeButton : styles.addButton} onPress={() => setIsAdded(!isAdded)}>
