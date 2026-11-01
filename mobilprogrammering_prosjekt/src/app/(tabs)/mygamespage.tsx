@@ -12,7 +12,7 @@ import { GameList } from "@/components/GameList";
 
 const gamesFromIGDB = `
     fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
-    where rating > 80 & rating_count > 50;
+    where rating > 80 & rating_count > 50 & name != "Grand Theft Auto V: Special Edition";
     sort rating desc;
     limit 10;`;
 

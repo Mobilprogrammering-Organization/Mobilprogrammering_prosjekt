@@ -10,16 +10,25 @@ type AuthContextData = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   deleteUser: () => void;
+  randomNumbers: number[] | [];
+  addRandomNumber: (number: number) => void;
 };
 
 const AuthContext = createContext<AuthContextData | null>(null);
 
 type AuthProviderProps = {
+  randomNumbers: number[] | [];
   children: React.ReactNode;
 };
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({
+  randomNumbers: initialRandomNumbers,
+  children,
+}: AuthProviderProps) {
   const [user, setUser] = useState<SessionUser | null>(null);
+  const [randomNumbers, setRandomNumbers] = useState<number[] | []>(
+    initialRandomNumbers ?? [],
+  );
 
   async function login(email: string, password: string) {
     if (user) return;
@@ -36,15 +45,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   function logout() {
     if (!user) return;
+    setRandomNumbers([]);
     setUser(null);
     router.push("./loginpage");
   }
 
   async function deleteUser() {
     if (!user) return;
+    setRandomNumbers([]);
     await useDeleteUser(user.id);
     setUser(null);
     router.push("./loginpage");
+  }
+
+  async function addRandomNumber(num: number) {
+    setRandomNumbers((prev) => (prev ? [...prev, num] : [num]));
   }
 
   const value = {
@@ -53,6 +68,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     login,
     logout,
     deleteUser,
+    randomNumbers: randomNumbers,
+    addRandomNumber,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
