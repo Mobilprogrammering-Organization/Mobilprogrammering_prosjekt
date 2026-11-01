@@ -60,3 +60,9 @@ export async function removeGame(gameId: number): Promise<void> {
 
 }
 
+
+export async function isGameSaved(gameId: number): Promise<boolean> {
+    const savedGames = await getSavedGames();
+
+    return savedGames.includes(gameId);
+}
