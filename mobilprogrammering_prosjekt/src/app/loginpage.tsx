@@ -45,8 +45,6 @@ export default function LoginPage() {
         await login(value.email, value.password);
         setConfirmationMessage("Login successful.");
       } catch (error: unknown) {
-        console.error("Login failed:", error);
-
         const message = error instanceof Error ? error.message : String(error);
 
         setErrorMessage(message);

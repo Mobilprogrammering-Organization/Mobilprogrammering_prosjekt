@@ -24,16 +24,29 @@ export async function login(
     body: JSON.stringify({ email: email, password: password }),
   });
 
-  const result = await response.json();
+  const result = await response.json().catch(() => null);
 
-  if (!response.ok) {
+  if (
+    response.status === 400 ||
+    response.status === 401 ||
+    response.status === 404
+  ) {
+    throw new Error("Wrong email or password.");
+  }
+
+  if (!response.ok || result?.ok === false) {
     throw new Error(
-      result.error?.message ?? `Could not log in (${response.status})`,
+      result?.error?.message ?? `Could not log in (${response.status})`,
     );
   }
 
   //Returnerer som { ok, data, code }
-  const payload = result.data?.user ?? result.data;
+  const payload = result?.data?.user ?? result?.data;
+  const parsed = ApiUserSchema.safeParse(payload);
 
-  return { user: ApiUserSchema.parse(payload) };
+  if (!parsed.success) {
+    throw new Error("Wrong email or password.");
+  }
+
+  return { user: parsed.data };
 }
