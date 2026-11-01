@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { Platform } from "react-native";
 import { z } from "zod";
+import { ApiUser, ApiUserSchema } from "./auth";
 
 export const UserSchema = z.object({
   id: z.string(),
@@ -27,68 +28,43 @@ export async function listUsers() {
   return result.data;
 }
 
-export function useCreateUser() {
-  const CREATE_USER_URL = `${WEBAPP_BASE_URL}/users`;
-
-  return useMutation({
-    mutationFn: async (value: User) => {
-      const response = await fetch(CREATE_USER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(value),
-      });
-
-      if (!response.ok) {
-        throw new Error("Could not create user");
-      }
-
-      return response.json();
-    },
-    onSuccess: (response) => {
-      router.replace({
-        pathname: "/userpage",
-        params: {
-          id: response.data.id,
-          email: response.data.email,
-          username: response.data?.username,
-        },
-      });
-    },
+export async function useCreateUser(
+  email: string,
+  password: string,
+): Promise<{ user: ApiUser }> {
+  const response = await fetch(`${WEBAPP_BASE_URL}/users`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email: email, password: password }),
   });
+
+  const result = await response.json().catch(() => null);
+
+  if (
+    response.status === 400 ||
+    response.status === 401 ||
+    response.status === 404
+  ) {
+    throw new Error("Email and password fields cannot be empty.");
+  }
+
+  if (response.status === 409) {
+    throw new Error("A user with this email already exists.");
+  }
+
+  if (!response.ok || result?.ok === false) {
+    throw new Error(
+      result?.error?.message ?? `Could not register (${response.status})`,
+    );
+  }
+
+  //Returnerer som { ok, data, code }
+  const payload = result?.data?.user ?? result?.data;
+  const parsed = ApiUserSchema.safeParse(payload);
+
+  if (!parsed.success) {
+    throw new Error("Failed to parse created user.");
+  }
+
+  return { user: parsed.data };
 }
-
-/*
-export function useLogin() {
-  const LOGIN_URL = `${WEBAPP_BASE_URL}/login`;
-
-  return useMutation({
-    mutationFn: async (value: {
-      email: string;
-      username?: string;
-      password: string;
-    }) => {
-      const response = await fetch(LOGIN_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(value),
-      });
-
-      if (!response.ok) {
-        throw new Error(response.status + " " + response.statusText);
-      }
-
-      return response.json();
-    },
-    onSuccess: (response) => {
-      router.replace({
-        pathname: "/userpage",
-        params: {
-          id: response.data.id,
-          email: response.data.email,
-          username: response.data?.username,
-        },
-      });
-    },
-  });
-}
-*/

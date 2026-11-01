@@ -7,18 +7,17 @@ import type { User } from "@/types/user";
 import { useState } from "react";
 import { Link, useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
-import { useCreateUser } from "@/api/user-api";
+import { useAuth } from "@/auth/context/AuthContext";
 import { isValidEmailFormat } from "@/utils/validation";
 
 export default function CreateAccountPage() {
-  const newUser = useCreateUser();
+  const { createUser } = useAuth();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmationMessage, setConfirmationMessage] = useState<string>("");
 
   const form = useForm({
     defaultValues: {
-      id: Math.floor(Math.random() * 1000000).toString(),
       username: "",
       email: "",
       password: "",
@@ -55,11 +54,9 @@ export default function CreateAccountPage() {
       setErrorMessage("");
 
       try {
-        await newUser.mutateAsync(value);
+        await createUser(value.email, value.password);
         setConfirmationMessage("Account created successfully.");
       } catch (error: unknown) {
-        console.error("Account creation failed:", error);
-
         const message = error instanceof Error ? error.message : String(error);
 
         setErrorMessage(message);
@@ -113,10 +110,7 @@ export default function CreateAccountPage() {
         )}
       />
 
-      <Pressable
-        disabled={newUser.isPending}
-        onPress={() => form.handleSubmit()}
-      >
+      <Pressable disabled={false} onPress={() => form.handleSubmit()}>
         <Text style={styles.button}>Create account</Text>
       </Pressable>
 
@@ -130,9 +124,9 @@ export default function CreateAccountPage() {
       ) : null}
 
       <Text style={styles.mainText}>
-        Already have an account?{" "}
+        Already have an account?{"\n"}
         <Link href="/loginpage" replace style={{ color: "blue" }}>
-          Login here
+          Go to login page
         </Link>
       </Text>
     </View>

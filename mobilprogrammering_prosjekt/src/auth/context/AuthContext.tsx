@@ -1,9 +1,11 @@
 import { login as loginApi } from "@/api/auth";
+import { useCreateUser } from "@/api/user-api";
 import { createContext, useContext, useState } from "react";
 import { SessionUser } from "../auth-types";
 
 type AuthContextData = {
   user: SessionUser | null;
+  createUser: (email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 };
@@ -22,12 +24,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setUser(result.user);
   }
 
+  async function createUser(email: string, password: string) {
+    const result = await useCreateUser(email, password);
+    setUser(result.user);
+  }
+
   function logout() {
     setUser(null);
   }
 
   const value = {
     user: user,
+    createUser,
     login,
     logout,
   };

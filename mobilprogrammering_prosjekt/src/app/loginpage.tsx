@@ -112,9 +112,9 @@ export default function LoginPage() {
       ) : null}
 
       <Text style={styles.mainText}>
-        Don't have an account?{" "}
+        Don't have an account?{"\n"}
         <Link href="/createaccountpage" replace style={{ color: "blue" }}>
-          Register here
+          Go to registration page
         </Link>
       </Text>
     </View>
