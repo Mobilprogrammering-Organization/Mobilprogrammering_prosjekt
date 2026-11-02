@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link, router, useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
 import { useAuth } from "@/auth/context/AuthContext";
-import { isValidEmailFormat } from "@/utils/validation";
+import { isValidEmailFormat } from "@/shared/utils/validation";
 
 export default function CreateAccountPage() {
   const { createUser } = useAuth();

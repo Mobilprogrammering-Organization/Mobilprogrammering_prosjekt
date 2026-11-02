@@ -1,12 +1,12 @@
 import { login as loginApi } from "@/api/auth";
 import { useCreateUser, useDeleteUser } from "@/api/user-api";
 import { createContext, useContext, useState } from "react";
-import { saveUser, getUser, clearUser } from "@/utils/userStorage";
+import { saveUser, getUser, clearUser } from "@/shared/utils/userStorage";
 import {
   saveRandomNumbers,
   getRandomNumbers,
   clearRandomNumbers,
-} from "@/utils/randomNumbersStorage";
+} from "@/shared/utils/randomNumbersStorage";
 import { SessionUser } from "../auth-types";
 import { router } from "expo-router";
 import { useEffect } from "react";

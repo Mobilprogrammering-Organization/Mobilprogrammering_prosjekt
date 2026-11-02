@@ -1,5 +1,5 @@
 import * as SecureStore from "expo-secure-store";
-import { saveUser, getUser, clearUser } from "@/utils/userStorage";
+import { saveUser, getUser, clearUser } from "@/shared/utils/userStorage";
 
 //Hermer litt av koden fra deg Jan Fredrik :).
 jest.mock("expo-secure-store", () => ({

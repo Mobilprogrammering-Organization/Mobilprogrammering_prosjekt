@@ -1,4 +1,4 @@
-import { getRandomNumber } from "../get-random-number";
+import { getRandomNumber } from "@/shared/utils/get-random-number";
 
 describe("getRandomNumber", () => {
   test("should return a number within the specified range", () => {
