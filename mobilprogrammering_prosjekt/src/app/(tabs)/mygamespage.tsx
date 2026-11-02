@@ -9,6 +9,9 @@ import { CLIENT_ID } from "@/constants/env_values";
 import { getIGDBContent } from "@/api/igdb";
 import { Game } from "@/types/game";
 import { GameList } from "@/components/GameList";
+import { getSavedGames } from "@/utils/gameStorage";
+import { useFocusEffect } from "../../../.expo/types/router";
+import { loadSavedGames } from "@/utils/loadSavedGames";
 
 const gamesFromIGDB = `
     fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
@@ -19,13 +22,30 @@ const gamesFromIGDB = `
     limit 10;`;
 
 export default function MyGamesPage() {
+  
   const [games, setGames] = useState<Partial<Game>[]>([]);
 
-  useEffect(() => {
-    getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? "").then((data) =>
-      setGames(data),
-    );
-  }, [games]);
+  // useEffect(() => {
+  //   getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? "").then((data) =>
+  //     setGames(data),
+  //   );
+  // }, [games]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      let active = true;
+
+      loadSavedGames()
+        .then((data) => {
+          if (active) setGames(data);
+        })
+        .catch((error) => console.error(error));
+
+      return () => {
+        active = false;
+      };
+    }, [])
+  );
 
   return (
     <React.Suspense fallback={<ActivityIndicator />}>

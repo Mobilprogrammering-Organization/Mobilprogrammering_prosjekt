@@ -30,7 +30,11 @@ where rating > 80 & rating_count > 50
 sort rating desc;
 limit 10;`;
 
-export function GameList() {
+export function GameList({
+  savedGames = [],
+}: {
+  savedGames?: Partial<Game>[];
+}) {
   //Tanstack:
   const {
     data: games,
@@ -41,6 +45,15 @@ export function GameList() {
     queryFn: () => getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? ""),
   });
 
+
+  const allGames = [
+  ...(games ?? []),
+  ...savedGames.filter(
+    (saved) =>
+      !games?.some((game) => Number(game.id) === Number(saved.id))
+  ),
+];
+
   return (
     <ScrollView>
       {isLoading ? (
@@ -48,11 +61,11 @@ export function GameList() {
       ) : isError ? (
         <Text>Something went wrong when fetching games...</Text>
       ) : games ? (
-        games.map((game) => (
+        allGames.map((game) => (
           <GameCard key={game.id} game={game}>
             <LikeToggle />
             <CommentSection />
-            <AddButton />
+            <AddButton gameId={Number(game.id)} />
           </GameCard>
         ))
       ) : (
