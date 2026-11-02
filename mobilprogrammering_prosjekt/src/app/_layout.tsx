@@ -8,7 +8,7 @@ import { AuthProvider, useAuth } from "@/auth/context/AuthContext";
 
 export default function LayoutWithProviders() {
   return (
-    <AuthProvider randomNumbers={[]}>
+    <AuthProvider>
       <QueryClientProvider>
         <RootLayout />
       </QueryClientProvider>

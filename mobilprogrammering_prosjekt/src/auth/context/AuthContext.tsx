@@ -2,6 +2,11 @@ import { login as loginApi } from "@/api/auth";
 import { useCreateUser, useDeleteUser } from "@/api/user-api";
 import { createContext, useContext, useState } from "react";
 import { saveUser, getUser, clearUser } from "@/utils/userStorage";
+import {
+  saveRandomNumbers,
+  getRandomNumbers,
+  clearRandomNumbers,
+} from "@/utils/randomNumbersStorage";
 import { SessionUser } from "../auth-types";
 import { router } from "expo-router";
 import { useEffect } from "react";
@@ -20,21 +25,15 @@ type AuthContextData = {
 const AuthContext = createContext<AuthContextData | null>(null);
 
 type AuthProviderProps = {
-  randomNumbers: number[] | [];
   children: React.ReactNode;
 };
 
-export function AuthProvider({
-  randomNumbers: initialRandomNumbers,
-  children,
-}: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<SessionUser | null>(null);
-  const [randomNumbers, setRandomNumbers] = useState<number[] | []>(
-    initialRandomNumbers ?? [],
-  );
+  const [randomNumbers, setRandomNumbers] = useState<number[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Henter bruker hvis den fins.
+  //Henter bruker og tallrekken hvis den fins.
   useEffect(() => {
     async function loadUser() {
       const storedUser = await getUser();
@@ -43,7 +42,14 @@ export function AuthProvider({
       }
       setIsLoading(false);
     }
+    async function loadRandomNumbers() {
+      const storedNumbers = await getRandomNumbers();
+      if (storedNumbers) {
+        setRandomNumbers(storedNumbers);
+      }
+    }
     loadUser();
+    loadRandomNumbers();
   }, []);
 
   async function login(email: string, password: string) {
@@ -69,6 +75,7 @@ export function AuthProvider({
     setUser(null);
     //Fjerner bruker etter log out.
     await clearUser();
+    await clearRandomNumbers();
     router.push("./loginpage");
   }
 
@@ -79,11 +86,13 @@ export function AuthProvider({
     setUser(null);
     //Fjerner bruker etter sletting.
     await clearUser();
+    await clearRandomNumbers();
     router.push("./loginpage");
   }
 
   async function addRandomNumber(num: number) {
     setRandomNumbers((prev) => (prev ? [...prev, num] : [num]));
+    await saveRandomNumbers([...randomNumbers, num]);
   }
 
   const value = {
