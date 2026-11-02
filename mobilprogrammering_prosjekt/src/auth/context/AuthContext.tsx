@@ -1,8 +1,10 @@
 import { login as loginApi } from "@/api/auth";
 import { useCreateUser, useDeleteUser } from "@/api/user-api";
 import { createContext, useContext, useState } from "react";
+import { saveUser, getUser, clearUser } from "@/utils/userStorage";
 import { SessionUser } from "../auth-types";
 import { router } from "expo-router";
+import { useEffect } from "react";
 
 type AuthContextData = {
   user: SessionUser | null;
@@ -12,6 +14,7 @@ type AuthContextData = {
   deleteUser: () => void;
   randomNumbers: number[] | [];
   addRandomNumber: (number: number) => void;
+  isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextData | null>(null);
@@ -29,24 +32,43 @@ export function AuthProvider({
   const [randomNumbers, setRandomNumbers] = useState<number[] | []>(
     initialRandomNumbers ?? [],
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  //Henter bruker hvis den fins.
+  useEffect(() => {
+    async function loadUser() {
+      const storedUser = await getUser();
+      if (storedUser) {
+        setUser(storedUser);
+      }
+      setIsLoading(false);
+    }
+    loadUser();
+  }, []);
 
   async function login(email: string, password: string) {
     if (user) return;
     const result = await loginApi(email, password);
     setUser(result.user);
+    //Setter bruker etter log in.
+    await saveUser(result.user);
     router.push("./userpage");
   }
 
   async function createUser(email: string, password: string) {
     const result = await useCreateUser(email, password);
     setUser(result.user);
+    //Setter bruker etter registrering.
+    await saveUser(result.user);
     router.push("./userpage");
   }
 
-  function logout() {
+  async function logout() {
     if (!user) return;
     setRandomNumbers([]);
     setUser(null);
+    //Fjerner bruker etter log out.
+    await clearUser();
     router.push("./loginpage");
   }
 
@@ -55,6 +77,8 @@ export function AuthProvider({
     setRandomNumbers([]);
     await useDeleteUser(user.id);
     setUser(null);
+    //Fjerner bruker etter sletting.
+    await clearUser();
     router.push("./loginpage");
   }
 
@@ -70,6 +94,7 @@ export function AuthProvider({
     deleteUser,
     randomNumbers: randomNumbers,
     addRandomNumber,
+    isLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

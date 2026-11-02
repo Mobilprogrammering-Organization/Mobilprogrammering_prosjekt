@@ -16,7 +16,6 @@ export default function LoginPage() {
 
   const form = useForm({
     defaultValues: {
-      username: "",
       email: "",
       password: "",
     },
@@ -54,20 +53,6 @@ export default function LoginPage() {
 
   return (
     <View style={styles.container}>
-      <form.Field
-        name="username"
-        children={(field) => (
-          <>
-            <Text style={styles.mainText}>Username:</Text>
-            <TextInput
-              style={styles.fieldInput}
-              value={field.state.value}
-              onChangeText={(value) => field.handleChange(value)}
-              placeholder="Create a username"
-            />
-          </>
-        )}
-      />
       <form.Field
         name="email"
         children={(field) => (
