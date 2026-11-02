@@ -7,6 +7,7 @@ export function AddButton({ gameId }: { gameId: number }) {
   const [isAdded, setIsAdded] = useState(false);
   const [isBusy, setIsBusy] = useState(true);
 
+  // Sjekke om spillet allerede er lagret
   useEffect(() => {
     isGameSaved(gameId)
       .then(setIsAdded)
@@ -14,23 +15,30 @@ export function AddButton({ gameId }: { gameId: number }) {
       .finally(() => setIsBusy(false));
   }, [gameId]);
 
+  // Legger til eller fjerner spillet
+  const handlePress = async () => {
+    setIsBusy(true);
 
+    try {
+      const saved = await isGameSaved(gameId);
 
-
-
-
-
-
-
-
-
-
-
-
+      if (saved) {
+        await removeGame(gameId);
+        setIsAdded(false);
+      } else {
+        await saveGame(gameId);
+        setIsAdded(true);
+      }
+    } catch (error) {
+      console.error("Kunne ikke oppdatere spill-listen:", error);
+    } finally {
+      setIsBusy(false);
+    }
+  };
 
 
   return (
-    <Pressable style={isAdded ? styles.removeButton : styles.addButton} onPress={() => setIsAdded(!isAdded)}>
+    <Pressable style={isAdded ? styles.removeButton : styles.addButton} onPress={(handlePress)} disabled={isBusy}>
       <Text style={styles.buttonText}>
         {isAdded ? "Remove game from game list." : "Add game to game list."}
       </Text>
