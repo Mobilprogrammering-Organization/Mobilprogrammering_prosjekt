@@ -10,7 +10,7 @@ export const ApiUserSchema = z.object({
 
 export type ApiUser = z.infer<typeof ApiUserSchema>;
 
-//Følger oppsett fraundervisning:
+//Følger oppsett fra undervisning:
 const HOST = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 const WEBAPP_BASE_URL = `http://${HOST}:5173/api/v1`;
 
