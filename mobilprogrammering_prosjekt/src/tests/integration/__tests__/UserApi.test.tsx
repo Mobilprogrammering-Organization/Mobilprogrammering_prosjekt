@@ -1,16 +1,11 @@
 import { login } from "@/api/auth";
-import { Platform } from "react-native";
 
-const HOST = Platform.OS === "android" ? "10.0.2.2" : "localhost";
-const WEBAPP_BASE_URL = `http://${HOST}:5173/api/v1`;
+test("login should return a user", async () => {
+  const result = await login("test@test.com", "password123");
+  expect(result.user).toMatchObject({ id: "1", email: "test@test.com" });
+});
 
-test("User API should return user data on successful login", async () => {
-  const email = "test@example.com";
-  const password = "password123";
-
-  const result = await login(email, password);
-
-  expect(result).toHaveProperty("user");
-  expect(result.user).toHaveProperty("id");
-  expect(result.user).toHaveProperty("email", email);
+test("login should fail if they provide with wrong login information", async () => {
+  const result = login("x@x.no", "wrong");
+  await expect(result).rejects.toThrow();
 });

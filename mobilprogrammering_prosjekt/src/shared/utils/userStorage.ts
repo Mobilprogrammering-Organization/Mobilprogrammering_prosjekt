@@ -1,4 +1,4 @@
-/**
+/*
 VSG Agents prompt and chatlog:
 I want to implement SecureStore to save and retrieve users. How do you reccomend implementing this in the application?
 

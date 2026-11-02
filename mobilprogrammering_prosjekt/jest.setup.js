@@ -1,7 +1,5 @@
-import { setupServer } from "msw/native";
-import "./msw.polyfills";
-
-const server = setupServer();
+import { server } from "./src/tests/integration/mocks/server";
+import "./src/tests/integration/mocks/msw.polyfills";
 
 // Etabler API-mocking før alle tester
 beforeAll(() => {
