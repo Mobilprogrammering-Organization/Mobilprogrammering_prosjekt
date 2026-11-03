@@ -55,6 +55,7 @@ export default function CreateAccountPage() {
       try {
         await createUser(value.email, value.password);
         setConfirmationMessage("Account created successfully.");
+        router.replace("/(tabs)/users");
       } catch (error: unknown) {
         const message = error instanceof Error ? error.message : String(error);
 
