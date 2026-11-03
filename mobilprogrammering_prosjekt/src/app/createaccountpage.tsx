@@ -13,6 +13,7 @@ import { isValidEmailFormat } from "@/shared/utils/validation";
 export default function CreateAccountPage() {
   const { createUser } = useAuth();
 
+  const [isPending, setIsPending] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmationMessage, setConfirmationMessage] = useState<string>("");
 
@@ -22,6 +23,7 @@ export default function CreateAccountPage() {
       password: "",
     },
     onSubmit: async ({ value }) => {
+      
       if (
         value.email.trim().length === 0 &&
         value.password.trim().length === 0
@@ -53,12 +55,15 @@ export default function CreateAccountPage() {
       setErrorMessage("");
 
       try {
+        setIsPending(true);
         await createUser(value.email, value.password);
         setConfirmationMessage("Account created successfully.");
+        setIsPending(false);
         router.replace("/(tabs)/users");
       } catch (error: unknown) {
         const message = error instanceof Error ? error.message : String(error);
 
+        setIsPending(false);
         setErrorMessage(message);
       }
     },
@@ -97,7 +102,7 @@ export default function CreateAccountPage() {
       />
 
       <Pressable disabled={false} onPress={() => form.handleSubmit()}>
-        <Text style={styles.button}>Create account</Text>
+        <Text style={[styles.button, isPending && styles.pendingButton]}>{isPending ? "Creating..." : "Create account"}</Text>
       </Pressable>
 
       {errorMessage ? (
