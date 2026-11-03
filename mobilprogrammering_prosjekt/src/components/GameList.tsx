@@ -46,13 +46,19 @@ export function GameList({
   });
 
 
-  const allGames = [
-  ...(games ?? []),
-  ...savedGames.filter(
-    (saved) =>
-      !games?.some((game) => Number(game.id) === Number(saved.id))
-  ),
-];
+const allGames: Partial<Game>[] = [...(games ?? [])];
+
+for (const savedGame of savedGames) {
+  if (savedGame.id == null) continue;
+
+  const gameExists = allGames.some(
+    (game) => Number(game.id) === Number(savedGame.id)
+  );
+
+  if (!gameExists) {
+    allGames.push(savedGame);
+  }
+}
 
   return (
     <ScrollView>

@@ -10,7 +10,7 @@ import { getIGDBContent } from "@/api/igdb";
 import { Game } from "@/types/game";
 import { GameList } from "@/components/GameList";
 import { getSavedGames } from "@/utils/gameStorage";
-import { useFocusEffect } from "../../../.expo/types/router";
+import { useFocusEffect } from "expo-router";
 import { loadSavedGames } from "@/utils/loadSavedGames";
 
 const gamesFromIGDB = `
