@@ -127,8 +127,11 @@ export default function GamePage() {
                     <View>
                       <Text style={gameStyles.infoText}>Related sources: </Text>
                       {websites?.map((website) => (
-                        <Pressable onPress={() => Linking.openURL(website.url)}>
-                          <Text key={website.url} style={gameStyles.link}>
+                        <Pressable
+                          key={website.url}
+                          onPress={() => Linking.openURL(website.url)}
+                        >
+                          <Text style={gameStyles.link}>
                             {website.url}
                             {"\n"}
                           </Text>
