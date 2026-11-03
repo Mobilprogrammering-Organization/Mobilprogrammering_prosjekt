@@ -89,12 +89,13 @@ Prosjektet utvikles gjennom høstsemesteret 2026 som en del av emnet Mobilprogra
 
 ## Starte appen
 
-1. Kopier url-en for prosjektet fra main-branchen og klon den i GitHub Desktop applikasjonen.
-2. Eventuelt last ned npm i "mobilprogrammering_prosjekt" mappen for å få "node_modules" mappen.
-3. Last ned "Expo Go" eller bruk en emulator.
+1. Kjør npm run dev i webprosjektet fra W-01 gruppa, dette mobilprosjektet er avhengig av databasen fra webprosjektet.
+2. Kopier url-en for prosjektet fra main-branchen og klon den i GitHub Desktop applikasjonen.
+3. Eventuelt last ned npm i "mobilprogrammering_prosjekt" mappen for å få "node_modules" mappen.
+4. Last ned "Expo Go" eller bruk en emulator.
    https://docs.expo.dev/get-started/set-up-your-environment/ 
 5. Hent private og hemmelige nøkler og legg dem i en ".env" fil i for å bruke IGDB-api-et. Kontakt Daniel Karlsen for å få nøklene.
-7. Kjør "npx expo start" for å starte applikasjonen.
+6. Kjør "npx expo start" for å starte applikasjonen.
 
 ## Tekniske detaljer
 
