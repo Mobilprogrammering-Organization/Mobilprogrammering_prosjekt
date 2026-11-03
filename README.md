@@ -99,7 +99,7 @@ Prosjektet utvikles gjennom høstsemesteret 2026 som en del av emnet Mobilprogra
 
 ## Tekniske detaljer
 
-Tester kjøres med jest rammeverket. Selve testfilene ligger i "__tests__" mappen. De kjøres med "npm run test".
+Tester kjøres med jest rammeverket. Selve testfilene ligger i "tests" mappen med undermapper fordelt på "components", "integration", "storage" og "units" for å skille testene basert på omfang og hva de tester for noe.
 
 Alle ruter man kan navigere til i appen ligger i "app" mappen. "(tabs)" mappen inneholder sider man kan navigere til fra navigasjonsmenyen på bunnen av skjermen.
 
