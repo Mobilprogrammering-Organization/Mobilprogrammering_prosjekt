@@ -1,25 +1,36 @@
 import { UserIcon } from "@/components/UserIcon";
-import { QueryClientProvider } from "@/context/QueryProvider";
+import { QueryClientProvider } from "@/auth/context/QueryProvider";
 import { styles } from "@/styles/styles";
 import { colors } from "@/styles/theme";
 import { Stack, useRouter } from "expo-router";
-import { Image, Text } from "react-native";
-//import checkpoint from "../../assets/images/checkpoint/checkpoint.png";
-
-function CheckpointLogo() {
-  //return <Image style={{ width: 50, height: 50 }} source={checkpoint} />;
-}
+import { ActivityIndicator, Image, Text } from "react-native";
+import { AuthProvider, useAuth } from "@/auth/context/AuthContext";
 
 export default function LayoutWithProviders() {
   return (
-    <QueryClientProvider>
-      <RootLayout />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider>
+        <RootLayout />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
 function RootLayout() {
   const router = useRouter();
+  const { user, isLoading } = useAuth();
+  const validUser = user !== null && user !== undefined;
+
+  //Viser loading ikon hvis bruker fra SecureStore ikke er lastet inn enda.
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        color={colors["brand-black"]}
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
+  }
 
   return (
     <Stack
@@ -32,36 +43,7 @@ function RootLayout() {
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="userpage"
-        options={{
-          title: "User page",
-        }}
-      />
-      <Stack.Screen
-        name="createaccountpage"
-        options={{
-          title: "Create user",
-        }}
-      />
-      <Stack.Screen
-        name="changepasswordpage"
-        options={{
-          title: "Change password",
-        }}
-      />
-      <Stack.Screen
-        name="deleteaccountpage"
-        options={{
-          title: "Delete account",
-        }}
-      />
-      <Stack.Screen
-        name="selectuser"
-        options={{
-          title: "Select user",
-        }}
-      />
+
       <Stack.Screen
         name="gamepage"
         options={{
@@ -74,6 +56,48 @@ function RootLayout() {
           title: "Article page",
         }}
       />
+
+      <Stack.Protected guard={!validUser}>
+        <Stack.Screen
+          name="loginpage"
+          options={{
+            title: "Login",
+          }}
+        />
+      </Stack.Protected>
+      <Stack.Protected guard={!validUser}>
+        <Stack.Screen
+          name="createaccountpage"
+          options={{
+            title: "Create user",
+          }}
+        />
+      </Stack.Protected>
+
+      <Stack.Protected guard={validUser}>
+        <Stack.Screen
+          name="userpage"
+          options={{
+            title: "User page",
+          }}
+        />
+      </Stack.Protected>
+      <Stack.Protected guard={validUser}>
+        <Stack.Screen
+          name="changepasswordpage"
+          options={{
+            title: "Change password",
+          }}
+        />
+      </Stack.Protected>
+      <Stack.Protected guard={validUser}>
+        <Stack.Screen
+          name="deleteaccountpage"
+          options={{
+            title: "Delete account",
+          }}
+        />
+      </Stack.Protected>
     </Stack>
   );
 }

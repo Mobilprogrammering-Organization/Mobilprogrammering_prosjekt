@@ -3,4 +3,5 @@ export const colors = {
   "brand-grey": "#212121",
   "brand-cyan": "#00e5d0",
   "brand-white": "#ffffff",
-}
+  "brand-red": "#ff0000",
+};

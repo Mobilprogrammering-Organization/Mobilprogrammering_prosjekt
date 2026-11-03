@@ -1,44 +1,51 @@
-/*Claude chat som forklarer hvordan man navigerer mellom sider gjennom Pressable: https://claude.ai/share/b9bcfa63-8997-4e41-b591-bdabbbd7a6f0*/
+/*Claude chat som forklarer hvordan man navigerer mellom sider gjennom Pressable: 
+/*https://claude.ai/share/b9bcfa63-8997-4e41-b591-bdabbbd7a6f0*/
 
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm } from "@tanstack/react-form";
 import type { User } from "@/types/user";
 import { useState } from "react";
-import { useRouter } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { styles } from "@/styles/styles";
-import { useCreateUser } from "@/api/user-api";
-import { isValidEmailFormat } from "@/utils/validation";
+import { useAuth } from "@/auth/context/AuthContext";
+import { isValidEmailFormat } from "@/shared/utils/validation";
 
 export default function CreateAccountPage() {
-  //FEilsøking:
-  console.log("CreateAccountPage lastet inn");
-  const router = useRouter();
-  const newUser = useCreateUser();
+  const { createUser } = useAuth();
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [confirmationMessage, setConfirmationMessage] = useState<string>("");
 
   const form = useForm({
     defaultValues: {
-      id: (Math.floor(Math.random() * 1000000)).toString(),
-      username: "",
       email: "",
       password: "",
     },
     onSubmit: async ({ value }) => {
-      //Feilsøk
-      console.log("onSubmit kjører", value);
-      
-      if (value.username.length < 3) {
-        setErrorMessage("Username must be at least 3 characters long.");
+      if (
+        value.email.trim().length === 0 &&
+        value.password.trim().length === 0
+      ) {
+        setErrorMessage("Email and password are required.");
         return;
       }
+
+      if (value.email.trim().length === 0) {
+        setErrorMessage("Email is required.");
+        return;
+      }
+
+      if (value.password.trim().length === 0) {
+        setErrorMessage("Password is required.");
+        return;
+      }
+
       if (value.password.length < 3) {
         setErrorMessage("Password must be at least 3 characters long.");
         return;
       }
 
-            if (!isValidEmailFormat(value.email)) {
+      if (!isValidEmailFormat(value.email) && value.email.length < 3) {
         setErrorMessage("Please enter a valid email.");
         return;
       }
@@ -46,50 +53,19 @@ export default function CreateAccountPage() {
       setErrorMessage("");
 
       try {
-        await newUser.mutateAsync(value);
+        await createUser(value.email, value.password);
         setConfirmationMessage("Account created successfully.");
+        router.replace("/(tabs)/users");
       } catch (error: unknown) {
-      console.error('Oppretting feilet:', error);
+        const message = error instanceof Error ? error.message : String(error);
 
-    const message =
-    error instanceof Error ? error.message : String(error);
-
-    setErrorMessage(message);
-}
-
-/*    
-      setErrorMessage("");
-      console.log("User data: ", value);
-      setConfirmationMessage("Account created successfully.");
-
-      setTimeout(() => {
-        router.replace({
-        pathname: "/userpage",
-        params: {
-          id: value.id,
-          username: value.username,
-        }
-      })}, 1000); */
-
-    }
+        setErrorMessage(message);
+      }
+    },
   });
 
   return (
     <View style={styles.container}>
-      <form.Field
-        name="username"
-        children={(field) => (
-          <>
-            <Text style={styles.mainText}>Username:</Text>
-            <TextInput
-              style={styles.fieldInput}
-              value={field.state.value}
-              onChangeText={(value) => field.handleChange(value)}
-              placeholder="Create a username"
-            />
-          </>
-        )}
-      />
       <form.Field
         name="email"
         children={(field) => (
@@ -116,19 +92,29 @@ export default function CreateAccountPage() {
               placeholder="Create a password"
               secureTextEntry={true}
             />
-          </> 
+          </>
         )}
       />
 
-      <Pressable
-        disabled={newUser.isPending} 
-        onPress={() => form.handleSubmit()}>
+      <Pressable disabled={false} onPress={() => form.handleSubmit()}>
         <Text style={styles.button}>Create account</Text>
       </Pressable>
 
-      {errorMessage ? <Text style={{ color: "red", ...styles.mainText }}>{errorMessage}</Text> : null}
-      {confirmationMessage ? <Text style={{ color: "green", ...styles.mainText }}>{confirmationMessage}</Text> : null}
+      {errorMessage ? (
+        <Text style={{ color: "red", ...styles.mainText }}>{errorMessage}</Text>
+      ) : null}
+      {confirmationMessage ? (
+        <Text style={{ color: "green", ...styles.mainText }}>
+          {confirmationMessage}
+        </Text>
+      ) : null}
+
+      <Text style={styles.mainText}>
+        Already have an account?{"\n"}
+        <Link href="/loginpage" replace style={{ color: "blue" }}>
+          Go to login page
+        </Link>
+      </Text>
     </View>
   );
 }
-

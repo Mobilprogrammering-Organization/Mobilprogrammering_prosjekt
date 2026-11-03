@@ -3,8 +3,12 @@ import { UserIcon } from "@/components/UserIcon";
 import { FontAwesomeFreeSolid } from "@react-native-vector-icons/fontawesome-free-solid";
 import { colors } from "@/styles/theme";
 import { Text } from "react-native";
+import { useAuth } from "@/auth/context/AuthContext";
 
 export default function TabLayout() {
+  const { user } = useAuth();
+  const validUser = user !== null && user !== undefined;
+
   return (
     <Tabs
       screenOptions={{
@@ -29,15 +33,19 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="mygamespage"
-        options={{
-          title: "My Games",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />
-          ),
-        }}
-      />
+
+      <Tabs.Protected guard={validUser}>
+        <Tabs.Screen
+          name="mygamespage"
+          options={{
+            title: "My Games",
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeFreeSolid name="gamepad" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
+
       <Tabs.Screen
         name="articlespage"
         options={{
@@ -56,15 +64,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="dummy"
-        options={{
-          title: "Dummy page",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeFreeSolid name="question" color={color} size={size} />
-          ),
-        }}
-      />
+      <Tabs.Protected guard={validUser}>
+        <Tabs.Screen
+          name="randomnumberspage"
+          options={{
+            title: "Random Numbers",
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesomeFreeSolid name="dice" color={color} size={size} />
+            ),
+          }}
+        />
+      </Tabs.Protected>
     </Tabs>
   );
 }
