@@ -4,4 +4,5 @@ export const colors = {
   "brand-cyan": "#00e5d0",
   "brand-white": "#ffffff",
   "brand-red": "#ff0000",
+  "brand-blue" : "#0e3ce2",
 };
