@@ -103,7 +103,7 @@ Tester kjøres med jest rammeverket. Selve testfilene ligger i "tests" mappen me
 
 Alle ruter man kan navigere til i appen ligger i "app" mappen. "(tabs)" mappen inneholder sider man kan navigere til fra navigasjonsmenyen på bunnen av skjermen.
 
-Dummy data ligger innenfor "data" mappen. Den faktiske dataen vi bruker i prosjektet er fra IGDB-API-et. Det er zod-schemaer for typene vi bruker inni "types" mappen. 
+Dataen vi bruker i prosjektet kommer fra Drizzle databasen i webprosjektet og fra IGDB-API-et. Det gjøres fetch kall mot databasen i den lokale serveren på webapplikasjonen, mobilapplikasjonen er derfor avhengig av webapplikasjonen. Det er zod-schemaer for typene vi bruker inni "types" mappen. 
 
 For å bruke IGDB-API-et trygt så måtte vi lagre nøklene et sted som ikke eksponerer dem i klartekst. Derfor er det best at de som ønsker å bruke applikasjonen kan stoles på og spør om nøklene selv direkte slik at nøklene forhåpentligvis ikke lekkes ut. 
 
