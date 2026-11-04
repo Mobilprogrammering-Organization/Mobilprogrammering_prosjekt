@@ -52,7 +52,6 @@ export default function GamePage() {
     screenshots,
     websites,
   } = game?.[0] ?? {};
-    console.log("Cover:", cover);
 
 
   return (
