@@ -38,14 +38,14 @@ export default function SearchResults() {
         <Text style={styles.mainText}>
           Something went wrong when fetching games...
         </Text>
-      ) : searchedGames ? (
+      ) : (searchedGames?.length ?? 0) > 0 ? (
         <React.Suspense
           fallback={
             <ActivityIndicator size="large" color={colors["brand-black"]} />
           }
         >
           <ScrollView>
-            {searchedGames.map((game) => (
+            {searchedGames?.map((game) => (
               <GameCard key={game.id} game={game}>
                 <AddButton gameID={game.id} />
               </GameCard>
