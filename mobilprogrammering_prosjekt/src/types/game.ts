@@ -1,29 +1,31 @@
 import { z } from "zod";
 
 export const GameSchema = z.object({
-  id: z.string().min(1, { message: "Id: is required " }),
+  id: z.number().min(1, { message: "Id: is required " }),
   name: z.string().min(1, { message: "Title: is required " }),
   cover: z.object({
-    id: z.string().min(1, { message: "Cover ID: is required " }),
+    id: z.number().min(1, { message: "Cover ID: is required " }),
     image_id: z.string().min(1, { message: "Cover Image ID: is required " }),
+
   }),
   platforms: z.array(
     z.object({
-      id: z.string().min(1, { message: "Platform ID: is required " }),
+      id: z.number().min(1, { message: "Platform ID: is required " }),
       name: z.string().min(1, { message: "Platform name: is required " }),
     }),
   ),
   genres: z.array(
     z.object({
-      id: z.string().min(1, { message: "Genre ID: is required " }),
+      id: z.number().min(1, { message: "Genre ID: is required " }),
       name: z.string().min(1, { message: "Genre name: is required " }),
     }),
   ),
   rating: z.number().min(1, { message: "Rating: is required " }),
+  first_release_date: z.number().optional(),
   release_dates: z.array(
     z.object({
-      id: z.string().min(1, { message: "Release Date ID: is required " }),
-      human: z.date({ message: "Release Date: is required " }),
+      id: z.number().min(1, { message: "Release Date ID: is required " }),
+      human: z.string().min(1,{ message: "Release Date: is required " }),
     }),
   ),
   summary: z.string().min(1, { message: "Description: is required " }),
@@ -49,6 +51,11 @@ export const GameSchema = z.object({
       }),
     )
     .optional(),
+    screenshots: z.array(
+  z.object({
+    image_id: z.string(),
+  })
+).optional(),
 });
 
 export type Game = z.infer<typeof GameSchema>;

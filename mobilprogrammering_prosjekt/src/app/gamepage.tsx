@@ -24,7 +24,7 @@ export default function GamePage() {
 
   const gameWithID = `
   fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary, 
-  age_ratings.rating_category.rating, storyline, websites.url;
+  age_ratings.rating_category.rating, storyline,screenshots.image_id, websites.url;
   where id = (${id});
   sort rating desc;
   limit 10;`;
@@ -35,7 +35,7 @@ export default function GamePage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["game", id],
+    queryKey: ["game", id, "screenshots"],
     queryFn: () => getIGDBContent("games", gameWithID, CLIENT_ID ?? ""),
   });
 
@@ -49,8 +49,11 @@ export default function GamePage() {
     summary,
     age_ratings,
     storyline,
+    screenshots,
     websites,
   } = game?.[0] ?? {};
+    console.log("Cover:", cover);
+
 
   return (
     <View style={styles.loading}>
@@ -66,9 +69,11 @@ export default function GamePage() {
               {game ? (
                 <View>
                   <Image
-                    style={{ width: 264, height: 374, alignSelf: "center" }}
+                    style={{ width: 264, height: 374, alignSelf: "center", flexShrink: 0, }}
+                    resizeMode="contain"
                     source={{
                       uri: cover?.image_id
+                      
                         ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${cover?.image_id}.jpg`
                         : undefined,
                     }}
@@ -138,7 +143,19 @@ export default function GamePage() {
                         </Pressable>
                       ))}
                     </View>
-                  </View>
+                    <View>
+                      <ScrollView
+                       horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexGrow: 0 }} snapToInterval={330}>                        
+                       {screenshots?.map((screenshot) => (
+                          <Image
+                            key={screenshot.image_id }
+                            source={{ uri: `https://images.igdb.com/igdb/image/upload/t_screenshot_huge/${screenshot.image_id}.jpg` }}
+                            style={{ width: 330, height: 200, marginRight: 10 }}
+                          />
+                        ))}
+                      </ScrollView>
+                      </View>
+                    </View>
                 </View>
               ) : (
                 <Text>The game page could not be found.</Text>
@@ -161,7 +178,6 @@ const gameStyles = StyleSheet.create({
   gameInfo: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
     backgroundColor: "#d7d7d7",
     padding: 10,
     textAlign: "center",
