@@ -7,12 +7,14 @@ import { Link } from "expo-router";
 import { CLIENT_ID } from "@/constants/env_values";
 import { getIGDBContent } from "@/api/igdb";
 import { type Game } from "@/types/game";
+import { Search } from "@/components/Search";
 
 export default function Index() {
   return (
     <View style={styles.loading}>
       <React.Suspense fallback={<ActivityIndicator />}>
         <View style={styles.container}>
+          <Search />
           <GameList />
         </View>
       </React.Suspense>

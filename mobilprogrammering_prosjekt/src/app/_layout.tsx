@@ -56,6 +56,12 @@ function RootLayout() {
           title: "Article page",
         }}
       />
+      <Stack.Screen
+        name="searchpage"
+        options={{
+          title: "Search Results",
+        }}
+      />
 
       <Stack.Protected guard={!validUser}>
         <Stack.Screen

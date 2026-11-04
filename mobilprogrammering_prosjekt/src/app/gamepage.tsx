@@ -57,9 +57,13 @@ export default function GamePage() {
       {isLoading ? (
         <ActivityIndicator size="large" color={colors["brand-black"]} />
       ) : isError ? (
-        <Text>Noe gikk galt under henting av spillet...</Text>
+        <Text>Something went wrong when fetching the game...</Text>
       ) : game ? (
-        <React.Suspense fallback={<ActivityIndicator />}>
+        <React.Suspense
+          fallback={
+            <ActivityIndicator size="large" color={colors["brand-black"]} />
+          }
+        >
           <ScrollView>
             <View style={[styles.container, gameStyles.game]}>
               <Text style={styles.mainText}>Game Details</Text>
