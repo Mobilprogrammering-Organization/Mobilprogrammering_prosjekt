@@ -1,62 +1,49 @@
-
-
-import AsyncStorage from "@react-native-async-storage/async-storage"
-
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // dokumentasjon: https://react-native-async-storage.github.io/2.0/Usage/
 
+const STORAGE_KEY = "myGames"; // "Nøkkeln" som brukes for å lagre spillene i AsyncStorage
 
-const STORAGE_KEY = "myGames"     // "Nøkkeln" som brukes for å lagre spillene i AsyncStorage
-
-
-
-
-export async function getSavedGames(): Promise<number[]> {
-try {
+export async function getSavedGames(): Promise<string[]> {
+  try {
     // Henter data fra lagringa
-    const data = await AsyncStorage.getItem(STORAGE_KEY)
-
+    const data = await AsyncStorage.getItem(STORAGE_KEY);
 
     if (data) {
-        return JSON.parse(data);
-
+      return JSON.parse(data);
     } else {
-
-        return [];
-    } 
-        
-} catch (error) {
+      return [];
+    }
+  } catch (error) {
     console.error("Kunne ikke hente lagrede spill:", error);
     throw error;
-}
-    
-}
-
-export async function saveGame(gameId: number): Promise<void> {
-    // Henter spill som man har
-    const savedGames = await getSavedGames();
-    
-    
-    if (!savedGames.includes(gameId)) { // Hvis spillet IKKE finns i lista, legg det til
-        
-        savedGames.push(gameId);
-        
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(savedGames) // Lagrer spillene i listen under en nøkkel i JSON-format
-        );
-    }
+  }
 }
 
+export async function saveGame(gameId: string): Promise<void> {
+  // Henter spill som man har
+  const savedGames = await getSavedGames();
 
+  if (!savedGames.includes(gameId)) {
+    // Hvis spillet IKKE finns i lista, legg det til
 
-export async function removeGame(gameId: number): Promise<void> {
-    const savedGames = await getSavedGames();
-
-    const updatedGames = savedGames.filter((id) => id !== gameId); // Fjerner spillet fra listen
+    savedGames.push(gameId);
 
     await AsyncStorage.setItem(
-        STORAGE_KEY, 
-        JSON.stringify(updatedGames)); // Lagrer den oppdaterte listen
-
+      STORAGE_KEY,
+      JSON.stringify(savedGames), // Lagrer spillene i listen under en nøkkel i JSON-format
+    );
+  }
 }
 
+export async function removeGame(gameId: string): Promise<void> {
+  const savedGames = await getSavedGames();
+
+  const updatedGames = savedGames.filter((id) => id !== gameId); // Fjerner spillet fra listen
+
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedGames)); // Lagrer den oppdaterte listen
+}
+
+export async function clearGames(): Promise<void> {
+  await AsyncStorage.removeItem(STORAGE_KEY);
+}

@@ -1,38 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, Text, StyleSheet } from "react-native";
+import { useAuth } from "@/auth/context/AuthContext";
+import { styles } from "@/styles/styles";
 
-export function AddButton() {
-  const [isAdded, setIsAdded] = useState(false);
+type AddButtonProps = {
+  gameID: string | undefined;
+};
 
-  return (
-    <Pressable style={isAdded ? styles.removeButton : styles.addButton} onPress={() => setIsAdded(!isAdded)}>
+export function AddButton({ gameID }: AddButtonProps) {
+  const { user, gameIDs, addGameID, removeGameID } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasGameInLibrary, setHasGameInLibrary] = useState(false);
+
+  useEffect(() => {
+    const hasGame = () => {
+      if (!gameID) return false;
+      return gameIDs.includes(gameID);
+    };
+    setHasGameInLibrary(hasGame());
+  }, [gameID, gameIDs, addGameID, removeGameID]);
+
+  return user ? (
+    <Pressable
+      style={hasGameInLibrary ? styles.successButton : styles.removeButton}
+      onPress={() => {
+        setIsSaving(true);
+        if (user && gameID) {
+          if (hasGameInLibrary) {
+            removeGameID(gameID);
+          } else if (!gameIDs.includes(gameID)) {
+            addGameID(gameID);
+          }
+        }
+        setIsSaving(false);
+      }}
+    >
       <Text style={styles.buttonText}>
-        {isAdded ? "Remove game from game list." : "Add game to game list."}
+        {isSaving
+          ? "Saving..."
+          : hasGameInLibrary
+            ? "In library"
+            : "Add to your game library"}
       </Text>
     </Pressable>
-  );
+  ) : null;
 }
-
-const styles = StyleSheet.create({
-  addButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "#00E5D0",
-    borderRadius: 5,
-    borderWidth: 3,
-    borderColor: "black",
-  },
-  removeButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "red",
-    borderRadius: 5,
-    borderWidth: 3,
-    borderColor: "black",
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-})

@@ -3,6 +3,12 @@ import { useCreateUser, useDeleteUser } from "@/api/user-api";
 import { createContext, useContext, useState } from "react";
 import { saveUser, getUser, clearUser } from "@/shared/utils/userStorage";
 import {
+  getSavedGames,
+  saveGame,
+  removeGame,
+  clearGames,
+} from "@/shared/utils/gameStorage";
+import {
   saveRandomNumbers,
   getRandomNumbers,
   clearRandomNumbers,
@@ -20,6 +26,9 @@ type AuthContextData = {
   randomNumbers: number[] | [];
   addRandomNumber: (number: number) => void;
   isLoading: boolean;
+  gameIDs: string[];
+  addGameID: (id: string) => void;
+  removeGameID: (id: string) => void;
 };
 
 const AuthContext = createContext<AuthContextData | null>(null);
@@ -31,6 +40,7 @@ type AuthProviderProps = {
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [randomNumbers, setRandomNumbers] = useState<number[] | []>([]);
+  const [gameIDs, setGameIDs] = useState<string[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   //Henter bruker og tallrekken hvis den fins.
@@ -48,8 +58,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setRandomNumbers(storedNumbers);
       }
     }
+    async function loadGameIDs() {
+      const storedGameIDs = await getSavedGames();
+      if (storedGameIDs) {
+        setGameIDs(storedGameIDs);
+      }
+    }
     loadUser();
     loadRandomNumbers();
+    loadGameIDs();
   }, []);
 
   async function login(email: string, password: string) {
@@ -76,6 +93,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     //Fjerner bruker etter log out.
     await clearUser();
     await clearRandomNumbers();
+    await clearGames();
     router.push("./loginpage");
   }
 
@@ -87,12 +105,23 @@ export function AuthProvider({ children }: AuthProviderProps) {
     //Fjerner bruker etter sletting.
     await clearUser();
     await clearRandomNumbers();
+    await clearGames();
     router.push("./loginpage");
   }
 
   async function addRandomNumber(num: number) {
     setRandomNumbers((prev) => (prev ? [...prev, num] : [num]));
     await saveRandomNumbers([...randomNumbers, num]);
+  }
+
+  async function addGameID(id: string) {
+    setGameIDs((prev) => (prev ? [...prev, id] : [id]));
+    await saveGame(id);
+  }
+
+  async function removeGameID(id: string) {
+    setGameIDs((prev) => (prev ? prev.filter((gameId) => gameId !== id) : []));
+    await removeGame(id);
   }
 
   const value = {
@@ -104,6 +133,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     randomNumbers: randomNumbers,
     addRandomNumber,
     isLoading,
+    gameIDs: gameIDs,
+    addGameID,
+    removeGameID,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

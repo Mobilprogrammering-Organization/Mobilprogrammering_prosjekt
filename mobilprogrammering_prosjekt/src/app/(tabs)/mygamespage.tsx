@@ -9,29 +9,57 @@ import { CLIENT_ID } from "@/constants/env_values";
 import { getIGDBContent } from "@/api/igdb";
 import { Game } from "@/types/game";
 import { GameList } from "@/components/GameList";
-
-const gamesFromIGDB = `
-    fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
-    where rating > 80 & rating_count > 50 
-    & name != "Grand Theft Auto V: Special Edition"
-    & name != "The Witcher 3: Wild Hunt - Game of the Year Edition";
-    sort rating desc;
-    limit 10;`;
+import { useAuth } from "@/auth/context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import { colors } from "@/styles/theme";
 
 export default function MyGamesPage() {
-  const [games, setGames] = useState<Partial<Game>[]>([]);
+  const { gameIDs } = useAuth();
 
-  useEffect(() => {
-    getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? "").then((data) =>
-      setGames(data),
-    );
-  }, [games]);
+  const gamesFromIGDB = `
+  fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
+  where id = (${gameIDs.join(",")});
+  sort name desc;
+  limit 10;`;
 
-  return (
-    <React.Suspense fallback={<ActivityIndicator />}>
-      <View style={styles.container}>
-        <GameList />
-      </View>
-    </React.Suspense>
+  const {
+    data: userGames,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["userGames", gameIDs],
+    queryFn: () => getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? ""),
+  });
+
+  return gameIDs.length === 0 ? (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={styles.mainText}>No games could be found.</Text>
+    </View>
+  ) : (
+    <View style={styles.loading}>
+      {isLoading ? (
+        <ActivityIndicator size="large" color={colors["brand-black"]} />
+      ) : isError ? (
+        <Text style={styles.mainText}>
+          Something went wrong when fetching games...
+        </Text>
+      ) : userGames ? (
+        <React.Suspense
+          fallback={
+            <ActivityIndicator size="large" color={colors["brand-black"]} />
+          }
+        >
+          <ScrollView>
+            {userGames.map((game) => (
+              <GameCard key={game.id} game={game}>
+                <AddButton gameID={game.id} />
+              </GameCard>
+            ))}
+          </ScrollView>
+        </React.Suspense>
+      ) : (
+        <Text style={styles.mainText}>No games could be found.</Text>
+      )}
+    </View>
   );
 }

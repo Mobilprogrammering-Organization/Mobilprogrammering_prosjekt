@@ -30,12 +30,14 @@ export default function SearchResults() {
     queryFn: () => getIGDBContent("games", gamesMatchingQuery, CLIENT_ID ?? ""),
   });
 
-  return (
+  return query ? (
     <View style={styles.loading}>
       {isLoading ? (
         <ActivityIndicator size="large" color={colors["brand-black"]} />
       ) : isError ? (
-        <Text>Something went wrong when fetching games...</Text>
+        <Text style={styles.mainText}>
+          Something went wrong when fetching games...
+        </Text>
       ) : searchedGames ? (
         <React.Suspense
           fallback={
@@ -43,22 +45,20 @@ export default function SearchResults() {
           }
         >
           <ScrollView>
-            {isLoading ? (
-              <ActivityIndicator size="large" color={colors["brand-black"]} />
-            ) : isError ? (
-              <Text>Something went wrong when fetching games...</Text>
-            ) : searchedGames ? (
-              searchedGames.map((game) => (
-                <GameCard key={game.id} game={game} />
-              ))
-            ) : (
-              <Text>No games could be found.</Text>
-            )}
+            {searchedGames.map((game) => (
+              <GameCard key={game.id} game={game}>
+                <AddButton gameID={game.id} />
+              </GameCard>
+            ))}
           </ScrollView>
         </React.Suspense>
       ) : (
-        <Text>No games could be found.</Text>
+        <Text style={styles.mainText}>No games could be found.</Text>
       )}
+    </View>
+  ) : (
+    <View style={styles.loading}>
+      <Text style={styles.mainText}>No search query provided.</Text>
     </View>
   );
 }

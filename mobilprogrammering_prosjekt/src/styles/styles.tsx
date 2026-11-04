@@ -105,6 +105,22 @@ export const styles = StyleSheet.create({
     marginRight: 20,
     textAlign: "center",
   },
+  successButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "#00c94f",
+    borderRadius: 5,
+    borderWidth: 3,
+    borderColor: "black",
+  },
+  removeButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "#00E5D0",
+    borderRadius: 5,
+    borderWidth: 3,
+    borderColor: "black",
+  },
   buttonText: {
     fontWeight: "bold",
     fontSize: 30,

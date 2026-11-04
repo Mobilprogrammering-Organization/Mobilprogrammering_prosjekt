@@ -51,8 +51,7 @@ export function GameList() {
         games.map((game) => (
           <GameCard key={game.id} game={game}>
             <LikeToggle />
-            <CommentSection />
-            <AddButton />
+            <AddButton gameID={game.id} />
           </GameCard>
         ))
       ) : (
