@@ -1,0 +1,62 @@
+import CommentSection from "./CommentSection";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  useWindowDimensions,
+} from "react-native";
+import { GameCard } from "./GameCard";
+import { AddButton } from "./AddButton";
+import LikeToggle from "./LikeToggle";
+import { CLIENT_ID } from "@/constants/env_values";
+import { getIGDBContent } from "@/api/igdb";
+import type { Game } from "@/types/game";
+import { GAMES } from "@/data/games";
+import React from "react";
+import { getGames } from "@/api/testApi";
+import { useQuery } from "@tanstack/react-query";
+import { colors } from "@/styles/theme";
+import { styles } from "@/styles/styles";
+
+const gamesFromIGDB = `
+fields name, cover.image_id, genres.name, platforms.name, rating, release_dates.human, summary;
+where rating > 80 & rating_count > 50 
+& name != "Grand Theft Auto V: Special Edition" 
+& name != "The Witcher 3: Wild Hunt - Game of the Year Edition";
+sort rating desc;
+limit 10;`;
+
+export function GameList() {
+  //Tanstack:
+  const {
+    data: games,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["games"],
+    queryFn: () => getIGDBContent("games", gamesFromIGDB, CLIENT_ID ?? ""),
+  });
+
+  return (
+    <ScrollView>
+      {isLoading ? (
+        <ActivityIndicator size="large" color={colors["brand-black"]} />
+      ) : isError ? (
+        <Text>Something went wrong when fetching games...</Text>
+      ) : games ? (
+        games.map((game) => (
+          <GameCard key={game.id} game={game}>
+            <LikeToggle />
+            <AddButton gameID={game.id} />
+          </GameCard>
+        ))
+      ) : (
+        <Text>No games could be found.</Text>
+      )}
+    </ScrollView>
+  );
+}
